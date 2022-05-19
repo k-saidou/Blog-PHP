@@ -1,5 +1,11 @@
 {
+    "name": "saidou/twig",
+    "autoload": {
+        "psr-4": {
+            "Saidou\\Twig\\": "src/"
+        }
+    },
     "require": {
-        "twig/twig": "3.0"
+        "twig/twig": "^3.4"
     }
 }
