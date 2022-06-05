@@ -2,10 +2,13 @@
     "name": "saidou/twig",
     "autoload": {
         "psr-4": {
-            "Saidou\\Twig\\": "src/"
+            "App\\": "src/"
         }
     },
     "require": {
-        "twig/twig": "^3.4"
+        "twig/twig": "^3.4",
+        "guzzlehttp/psr7": "^2.2",
+        "http-interop/response-sender": "^1.0",
+        "squizlabs/php_codesniffer": "^3.6"
     }
 }

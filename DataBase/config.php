@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataBase;
+namespace App\dataBase;
 
 $host = 'localhost';
 $dbname = 'blog_php';

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\DataBase;
+namespace App\dataBase;
 
 use PDO;
 use PDOException;
 
-require 'config.php';
+require 'Config.php';
 
 $dsn = "mysql:host=$host;dbname=$dbname;charset=UTF8";
 
