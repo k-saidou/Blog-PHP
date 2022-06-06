@@ -21,7 +21,9 @@ $router->get('/posts/:id', 'App\Controllers\Controller@show');
 $router->run();
 */
 
-$app = new App\FramApp\App();
+$app = new App\FramApp\App([
+    \App\Module\BlogModule::class
+]);
 
 $response = $app->run(ServerRequest::fromGlobals());
 send($response);
