@@ -8,6 +8,12 @@
 
         <?php endforeach; ?>
 
+        <ul>
+            <?php foreach($comments as $comment): ?>
+                <li><a href="<?= $comment->url; ?>"><?= $comment->content; ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+
     </div>
 </div>
         <!-- Page Header-->
