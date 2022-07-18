@@ -2,6 +2,8 @@
 
 define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 
+require 'vendor/autoload.php';
+
 require_once(ROOT. 'app/Model.php');
 require_once(ROOT. 'app/Controller.php');
 
@@ -23,7 +25,12 @@ if($params[0] != ""){
     $controller = new $controller();
 
     if(method_exists($controller, $action)){
-        $controller->$action();    
+       // On supprime les 2 premiers paramètres
+       unset($params[0]);
+       unset($params[1]);
+
+       // On appelle la méthode $action du contrôleur $controller
+       call_user_func_array([$controller,$action], $params);
   
     }else{
         http_response_code(404);

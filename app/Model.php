@@ -1,6 +1,7 @@
 <?php 
 
 abstract class Model{
+
     // Informations de la base de données
     private $host = "localhost";
     private $db_name = "blog_php";
@@ -32,7 +33,8 @@ abstract class Model{
         }
     }   
 
-        /**
+    
+    /**
      * Méthode permettant d'obtenir un enregistrement de la table choisie en fonction d'un id
      *
      * @return void
