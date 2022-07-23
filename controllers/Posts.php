@@ -1,6 +1,6 @@
 <?php 
 
-class Posts extends Controller{
+class Posts extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des posts

@@ -1,6 +1,6 @@
 <?php 
 
-class Post extends AbstractModel{
+class Home extends AbstractModel{
 
     public function __construct()
     {
@@ -22,6 +22,18 @@ class Post extends AbstractModel{
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC);    
+    }
+
+        /**
+     * Méthode permettant d'obtenir tous les enregistrements de la table choisie
+     *
+     * @return void
+     */
+    public function getLast(){
+        $sql = "SELECT * FROM .$this->table ORDER BY created_at DESC LIMIT 4";
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();    
     }
 
 

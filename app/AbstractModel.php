@@ -1,6 +1,6 @@
 <?php 
 
-abstract class Model{
+abstract class AbstractModel{
 
     // Informations de la base de données
     private $host = "localhost";
@@ -53,6 +53,18 @@ abstract class Model{
      */
     public function getAll(){
         $sql = "SELECT * FROM ".$this->table;
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();    
+    }
+
+            /**
+     * Méthode permettant d'obtenir tous les enregistrements de la table choisie
+     *
+     * @return void
+     */
+    public function getLast(){
+        $sql = "SELECT * FROM .$this->table ORDER BY creationTime DESC LIMIT 4";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll();    

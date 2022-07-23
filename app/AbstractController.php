@@ -6,7 +6,7 @@ use Twig\Extra\String\StringExtension;
 use Twig\Extra\CssInliner\CssInlinerExtension;
 
 
-abstract class Controller{
+abstract class AbstractController{
 
 
     /**
