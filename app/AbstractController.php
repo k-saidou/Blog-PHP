@@ -6,8 +6,7 @@ use Twig\Extra\String\StringExtension;
 use Twig\Extra\CssInliner\CssInlinerExtension;
 
 
-abstract class Controller{
-
+abstract class AbstractController{
 
     /**
      * Permet de charger un modèle
@@ -23,25 +22,25 @@ abstract class Controller{
         $this->$model = new $model();
         }
 
-        private $loader;
-        protected $twig;
+    private $loader;
+    protected $twig;
 
-        public function __construct()
-        {
-            $this->loader = new FilesystemLoader(ROOT. '/views');
-            $this->twig = new Environment($this->loader);
-            $this->twig->addExtension(new StringExtension());
-            $this->twig->addExtension(new CssInlinerExtension());
-        }
+    public function __construct()
+    {
+        $this->loader = new FilesystemLoader(ROOT. '/views');
+        $this->twig = new Environment($this->loader);
+        $this->twig->addExtension(new StringExtension());
+        $this->twig->addExtension(new CssInlinerExtension());
+    }
 
-        /**
-         * Afficher une vue
-         *
-         * @param string $fichier
-         * @param array $data
-         * @return void
-         */
-        public function render(string $fichier, array $data = []){
+    /**
+     * Afficher une vue
+     *
+     * @param string $fichier
+     * @param array $data
+     * @return void
+     */
+    public function render(string $fichier, array $data = []){
 
         // Récupère les données et les extrait sous forme de variables
         extract($data);

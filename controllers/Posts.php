@@ -1,6 +1,6 @@
 <?php 
 
-class Posts extends Controller{
+class Posts extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des posts
@@ -29,5 +29,12 @@ class Posts extends Controller{
         $this->loadModel('Post');
         $post = $this->Post->findById($id);
         $this->twig->display('posts/show.html.twig', compact('post'));
+    }
+
+    public function read(){
+        $this->loadModel('Post');
+        $posts = $this->Post->getAll();
+        $this->twig->display('posts/read.html.twig', compact('posts'));
+
     }
 }

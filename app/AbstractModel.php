@@ -1,6 +1,6 @@
 <?php 
 
-abstract class Model{
+abstract class AbstractModel{
 
     // Informations de la base de données
     private $host = "localhost";
@@ -34,17 +34,7 @@ abstract class Model{
     }   
 
     
-    /**
-     * Méthode permettant d'obtenir un enregistrement de la table choisie en fonction d'un id
-     *
-     * @return void
-     */
-    public function getOne(){
-        $sql = "SELECT * FROM ".$this->table." WHERE id=".$this->id;
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetch();    
-    }
+
 
     /**
      * Méthode permettant d'obtenir tous les enregistrements de la table choisie
@@ -53,6 +43,31 @@ abstract class Model{
      */
     public function getAll(){
         $sql = "SELECT * FROM ".$this->table;
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();    
+    }
+
+    /**
+     * Retourne un post en fonction de son id
+     *
+     * @param int $id
+     * @return void
+     */
+    public function findById(string $id){
+        $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);    
+    }
+
+    /**
+     * Méthode permettant d'obtenir tous les 4 derniers enregistrements de la table choisie
+     *
+     * @return void
+     */
+    public function getLast(){
+        $sql = "SELECT * FROM .$this->table ORDER BY creationTime DESC LIMIT 4";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll();    
