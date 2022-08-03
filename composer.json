@@ -1,5 +1,11 @@
 {
     "name": "keita/blog-php",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Core\\": "core/"
+        }
+    },
     "authors": [
         {
             "name": "keita saidou",

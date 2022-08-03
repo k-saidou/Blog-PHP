@@ -1,6 +1,9 @@
 <?php 
+namespace App\controllers;
 
-class Posts extends AbstractController{
+use core\AbstractController;
+
+class PostsController extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des posts

@@ -1,4 +1,7 @@
 <?php 
+namespace App\models;
+
+use core\AbstractModel;
 
 class Post extends AbstractModel{
 

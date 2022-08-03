@@ -4,8 +4,12 @@ define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 
 require 'vendor/autoload.php';
 
-require_once(ROOT. 'app/AbstractModel.php');
-require_once(ROOT. 'app/AbstractController.php');
+use App\controllers\HomeController;
+use Core\AbstractController;
+use core\AbstractModel;
+
+require_once(ROOT. 'core/AbstractModel.php');
+require_once(ROOT. 'core/AbstractController.php');
 
 // On sépare les paramètres et on les met dans le tableau $params
 $params = explode('/', $_GET['p']);
@@ -13,13 +17,13 @@ $params = explode('/', $_GET['p']);
 // Si au moins 1 paramètre existe
 if($params[0] != ""){
     // On sauvegarde le 1er paramètre dans $controller en mettant sa 1ère lettre en majuscule
-    $controller = ucfirst($params[0]);
+    $controller = ucfirst($params[0]) . 'Controller';
 
     // On sauvegarde le 2ème paramètre dans $action si il existe, sinon index
     $action = isset($params[1]) ? $params[1] : 'index';
 
     // On appelle le contrôleur
-    require_once(ROOT.'controllers/'.$controller.'.php');
+    require_once(ROOT.'App/controllers/'.$controller.'.php');
 
     // On instancie le contrôleur
     $controller = new $controller();
@@ -39,10 +43,10 @@ if($params[0] != ""){
 }else{
     // Ici aucun paramètre n'est défini
     // On appelle le contrôleur par défaut
-    require_once(ROOT.'controllers/Home.php');
+    require_once(ROOT.'src/controllers/HomeController.php');
 
     // On instancie le contrôleur
-    $controller = new Home();
+    $controller = new HomeController();
 
     // On appelle la méthode index
     $controller->index();

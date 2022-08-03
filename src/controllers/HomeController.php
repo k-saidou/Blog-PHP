@@ -1,6 +1,9 @@
 <?php 
+namespace App\controllers;
 
-class Home extends AbstractController{
+use core\AbstractController;
+
+class HomeController extends AbstractController{
 
     public function index(){
                 // On instancie le modèle "Post"

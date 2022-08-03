@@ -1,4 +1,8 @@
 <?php 
+namespace core;
+
+use PDO;
+use PDOException;
 
 abstract class AbstractModel{
 
