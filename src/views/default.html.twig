@@ -35,7 +35,9 @@
                 </div>
             </div>
         </nav>
-        {% block body %}{% endblock %}
+        {% block body %}
+        session_start();
+        {% endblock %}
         <!-- Footer-->
         <footer class="border-top">
             <div class="container px-4 px-lg-5">

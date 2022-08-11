@@ -1,6 +1,10 @@
 <?php 
+namespace Src\controllers;
 
-class Posts extends AbstractController{
+use App\AbstractController;
+use Src\Entity\Post;
+
+class PostsController extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des posts
@@ -35,6 +39,11 @@ class Posts extends AbstractController{
         $this->loadModel('Post');
         $posts = $this->Post->getAll();
         $this->twig->display('posts/read.html.twig', compact('posts'));
+    }
 
+    public function delete($id){
+        $this->loadModel('post');
+        $post = $this->post->deletePost($id);
+        $this->twig->display('posts/index.html.twig');
     }
 }
