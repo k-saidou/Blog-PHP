@@ -46,4 +46,19 @@ class PostsController extends AbstractController{
         $post = $this->post->deletePost($id);
         $this->twig->display('posts/index.html.twig');
     }
+
+    public function new($titre, $chapo, $contenu){
+        $this->loadModel('post');
+        $post = $this->post->create($titre, $chapo, $contenu);                  
+        return $this->twig->display('posts/new.html.twig', compact('post'));
+
+    }
+
+    public function update($id){
+        $this->loadModel('post');
+        $post = $this->post->update($id);                  
+        $this->twig->display('posts/update.html.twig');
+
+    }
+
 }
