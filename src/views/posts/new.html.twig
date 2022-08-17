@@ -6,7 +6,7 @@
 <div class="container">
 <h1>CREER UN POST</h1>
 
-<form action="../posts/new" method ="POST">
+<form action="" method ="POST">
     <div class="form-group">
         <label for="titre" >Titre du post</label>
         <input type="text" class="form-control" id="titre" name="titre" placeholder=
@@ -25,8 +25,26 @@
         </textarea>
     </div>
     <br>
+        <div class="form-group">
+        <label for="creation" >creation</label>
+        <input type="dateTime" class="form-control" id="creationTime" name="creationTime" placeholder=
+        "creationTime">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="updateTime" >date</label>
+        <input type="DateTime" class="form-control" id="updateTime" name="updateTime" placeholder=
+        "updateTime">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="iduser" >iduser</label>
+        <input type="text" class="form-control" id="iduser" name="iduser" placeholder=
+        "iduser">
+    </div>
+    <br>
     <br><br>
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <button type="submit" name="submit" class="btn btn-primary">Enregistrer</button>
 </form>
 </div>
 

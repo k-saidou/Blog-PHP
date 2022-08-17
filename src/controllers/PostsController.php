@@ -47,10 +47,29 @@ class PostsController extends AbstractController{
         $this->twig->display('posts/index.html.twig');
     }
 
-    public function new($titre, $chapo, $contenu){
-        $this->loadModel('post');
-        $post = $this->post->create($titre, $chapo, $contenu);                  
-        return $this->twig->display('posts/new.html.twig', compact('post'));
+    public function new(){
+
+        $post = new Post();
+
+        if(isset($_POST['submit'])){
+            $titre = $_POST['titre'];
+            $chapo = $_POST['chapo'];
+            $contenu = $_POST['contenu'];
+            $creationTime = $_POST['creationTime'];
+            $updateTime = $_POST['updateTime'];
+            $id_user = $_POST['iduser'];
+
+            $post->create();
+
+/*
+            if(!empty($_POST['titre'])and !empty($_POST['chapo'])and !empty($_POST['contenu'])){
+                $titre=htmlspecialchars($_POST['titre']);
+                $chapo=htmlspecialchars($_POST['chapo']);
+                $contenu=htmlspecialchars($_POST['contenu']);
+            }*/
+        }
+
+         return $this->twig->display('posts/new.html.twig');
 
     }
 
