@@ -1,8 +1,9 @@
 <?php 
 namespace Src\controllers;
 
-use App\AbstractController;
+use PDOException;
 use Src\Entity\Post;
+use App\AbstractController;
 
 class PostsController extends AbstractController{
 
@@ -47,8 +48,10 @@ class PostsController extends AbstractController{
         $this->twig->display('posts/index.html.twig');
     }
 
-    public function new(){
+    // TODO controller non fonctionnel 
+   /* public function new(){
 
+        
         $post = new Post();
 
         if(isset($_POST['submit'])){
@@ -59,24 +62,27 @@ class PostsController extends AbstractController{
             $updateTime = $_POST['updateTime'];
             $id_user = $_POST['iduser'];
 
-            $post->create();
+          //  $post->create();
 
-/*
-            if(!empty($_POST['titre'])and !empty($_POST['chapo'])and !empty($_POST['contenu'])){
-                $titre=htmlspecialchars($_POST['titre']);
-                $chapo=htmlspecialchars($_POST['chapo']);
-                $contenu=htmlspecialchars($_POST['contenu']);
-            }*/
         }
+    
+        $this->twig->display('posts/new.html.twig');
 
-         return $this->twig->display('posts/new.html.twig');
 
-    }
+
+    }*/
 
     public function update($id){
         $this->loadModel('post');
         $post = $this->post->update($id);                  
         $this->twig->display('posts/update.html.twig');
+
+    }
+
+    public function new(){
+        $this->loadModel('post');
+        $post = $this->post->neww();                  
+        $this->twig->display('posts/new.html.twig');
 
     }
 

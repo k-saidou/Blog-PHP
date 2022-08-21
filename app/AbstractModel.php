@@ -31,6 +31,7 @@ abstract class AbstractModel{
         // On essaie de se connecter à la base
         try{
             $this->_connexion = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
+            $_SESSION['connexion'] = var_dump($this->_connexion);
             $this->_connexion->exec("set names utf8");
         }catch(PDOException $exception){
             echo "Erreur de connexion : " . $exception->getMessage();
@@ -72,6 +73,14 @@ abstract class AbstractModel{
      */
     public function getLast(){
         $sql = "SELECT * FROM .$this->table ORDER BY creationTime DESC LIMIT 4";
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return $query->fetchAll();    
+    }
+
+    public function neww(){
+        $sql = "INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
+        VALUES (:titre, :chapo, :contenu, NULL, NULL, NULL)";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll();    

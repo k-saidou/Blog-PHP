@@ -54,6 +54,8 @@ class PostModel extends AbstractModel{
 
             try {
 
+                var_dump($_POST);
+
                 $query = $this->_connexion->prepare("INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
                 VALUES (:titre, :chapo, :contenu, NULL, NULL, NULL)");
                 $statement = $this->_connexion->prepare($query);
