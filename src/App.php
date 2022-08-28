@@ -46,6 +46,13 @@ class App
             'show',
         );
         $this->router->addRoute($postsRoute);
+        $postsRoute = new Route(
+            '/posts/read',
+            'read',
+            PostsController::class,
+            'read',
+        );
+        $this->router->addRoute($postsRoute);
         try {
             $route = $this->router->findRoute(); // On demande au routeur de trouver une route
             if ($route instanceof Route) {
