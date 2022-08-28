@@ -1,5 +1,5 @@
 <?php
-namespace Src\Entity;
+namespace App\Entity;
 
 
 class Post 

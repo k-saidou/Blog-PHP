@@ -1,14 +1,19 @@
 <?php
 
-define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
+define( dirname(__DIR__), str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 
-require_once(ROOT.'vendor/autoload.php');
+//require_once(ROOT.'vendor/autoload.php');
+require dirname(__DIR__) . '/vendor/autoload.php';
 
+use App\App;
 use src\controllers\Home;
-use Src\controllers\HomeController;
 use Src\controllers\Posts;
+use Src\controllers\HomeController;
 use Src\controllers\PostsController;
 
+$app = new App();
+echo $app->run();
+/*
 // On sépare les paramètres et on les met dans le tableau $params
 $params = explode('/', $_GET['p']);
 
@@ -45,3 +50,4 @@ if($params[0] != ""){
     // On appelle la méthode index
     $controller->index();
 }
+*/

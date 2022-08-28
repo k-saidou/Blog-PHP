@@ -1,7 +1,7 @@
 <?php 
-namespace Src\controllers;
+namespace App\controllers;
 
-use App\AbstractController;
+use Core\AbstractController;
 
 class CommentsController extends AbstractController{
 

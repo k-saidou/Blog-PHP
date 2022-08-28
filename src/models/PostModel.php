@@ -1,11 +1,10 @@
 <?php 
 
-namespace Src\models;
+namespace App\models;
 
 use PDO;
 use PDOException;
-use Src\Entity\Post;
-use App\AbstractModel;
+use Core\AbstractModel;
 
 class PostModel extends AbstractModel{
 
@@ -46,44 +45,12 @@ class PostModel extends AbstractModel{
     public function create(){
 
 
-        if(isset($_POST['submit'])){
-
-            $titre = $_POST['titre'];
-            $chapo = $_POST['chapo'];
-            $contenu = $_POST['contenu'];
-
-            try {
-
-                var_dump($_POST);
 
                 $query = $this->_connexion->prepare("INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
                 VALUES (:titre, :chapo, :contenu, NULL, NULL, NULL)");
                 $statement = $this->_connexion->prepare($query);
-                $statement->bindParam(1, $titre);
-                $statement->bindParam(2, $chapo);
-                $statement->bindParam(3, $contenu);
-                $query_execute = $statement->execute();
-
-                if($query_execute){
-                    $_SESSION['message'] = "Post Ajouté";
-                    header('Location: read.html.twig');
-                    exit(0);
-                } else{
-                    $_SESSION['message'] = "Post Non Ajouté";
-                    header('Location: read.html.twig');
-                    exit(0);
-                }
-
-
-            } catch (PDOException $e) {
-                echo "My Error Type:". $e->getMessage();
-            }
+                $statement->execute();
         }
-
-
-                
-            
-    }
 
     public function update($id){
         $req = $this->_connexion->prepare('UPDATE post SET titre = :titre, chapo = :chapo, contenu = :contenu WHERE id = :id');

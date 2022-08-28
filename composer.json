@@ -2,8 +2,8 @@
     "name": "keita/blog-php",
     "autoload": {
         "psr-4": {
-            "Src\\": "src/",
-            "App\\": "app/"
+            "App\\": "src/",
+            "Core\\": "core/"
         }
     },
     "authors": [
