@@ -59,7 +59,7 @@ abstract class AbstractModel{
      * @param int $id
      * @return void
      */
-    public function findById(string $id){
+    public function findById($id){
         $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
@@ -73,14 +73,6 @@ abstract class AbstractModel{
      */
     public function getLast(){
         $sql = "SELECT * FROM .$this->table ORDER BY creationTime DESC LIMIT 4";
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetchAll();    
-    }
-
-    public function neww(){
-        $sql = "INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
-        VALUES (:titre, :chapo, :contenu, NULL, NULL, NULL)";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetchAll();    

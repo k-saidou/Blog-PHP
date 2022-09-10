@@ -23,23 +23,6 @@ class PostModel extends AbstractModel{
         $req->execute(array($id));
     }
 
-    /*
-    // TODO non termine 
-    public function create($titre, $chapo, $contenu, $creationTime, $updateTime, $id_user){
-
-        $sql = 'INSERT INTO post(titre, chapo, contenu, creationTime, updateTime, id_user) 
-        VALUES(:titre, :chapo, :contenu, :creationTime, :updateTime, :id_user)';
-        $stmt = $this->_connexion->prepare($sql);
-        $stmt->bindValue(':titre', $titre, PDO::PARAM_STR);
-        $stmt->bindValue(':chapo', $chapo, PDO::PARAM_STR);
-        $stmt->bindValue(':contenu', $contenu, PDO::PARAM_STR);
-        $stmt->bindValue(':creationTime', $creationTime, PDO::PARAM_STR);
-        $stmt->bindValue(':updateTime', $updateTime, PDO::PARAM_STR);
-        $stmt->bindValue(':id_user', $id_user, PDO::PARAM_STR);
-        $stmt->execute(array($titre, $chapo, $contenu, $creationTime, $updateTime, $id_user));
-    }
-    */
-
 
     // TODO test creation Post à réaliser
     public function create($titre, $chapo, $contenu){
@@ -68,11 +51,18 @@ class PostModel extends AbstractModel{
             }catch(PDOException $e){
                 echo $e;
             }
-        }
-                
-
-    public function update($id){
-        $req = $this->_connexion->prepare('UPDATE post SET titre = :titre, chapo = :chapo, contenu = :contenu WHERE id = :id');
-        $req->execute();
     }
+         
+    public function update($titre, $chapo, $contenu){
+        $sql = "UPDATE post SET titre = :titre, chapo = :chapo, contenu = :contenu WHERE id = :id";
+        $query = $this->_connexion->prepare($sql);
+        $query->bindParam(':titre', $titre, PDO::PARAM_STR);
+        $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
+        $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
+        $query->execute();
+
+    }
+
+   
+      
 }

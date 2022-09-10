@@ -29,7 +29,7 @@ class PostsController extends AbstractController{
      * @param int $id
      * @return void
      */
-    public function show(string $id){
+    public function show(int $id){
 
         $this->loadModel('Post');
         $post = $this->Post->findById($id);
@@ -64,7 +64,7 @@ class PostsController extends AbstractController{
         }
         $this->loadModel('post');
         $post = $this->post->create($titre, $chapo, $contenu);
-        return $this->twig->display('posts/read.html.twig');
+        return $this->twig->display('posts/new.html.twig');
     }
 
     public function update($id){
@@ -73,12 +73,5 @@ class PostsController extends AbstractController{
         $this->twig->display('posts/update.html.twig');
 
     }
-/*
-    public function new(){
-        $this->loadModel('post');
-        $post = $this->post->new();                  
-        $this->twig->display('posts/new.html.twig');
-
-    }*/
 
 }

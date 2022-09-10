@@ -4,6 +4,7 @@ namespace App;
 
 use App\Controllers\HomeController;
 use App\controllers\PostsController;
+use App\controllers\CommentsController;
 use App\Router\Route;
 use App\Router\Router;
 use Exception;
@@ -21,7 +22,7 @@ class App
     {
         $homeRoute = new Route(
             '/',
-            'home',
+            '/home',
             HomeController::class,
             'index'
         );
@@ -32,7 +33,8 @@ class App
             PostsController::class,
             'index',
         );
-        $this->router->addRoute($postsRoute);        $postsRoute = new Route(
+        $this->router->addRoute($postsRoute);        
+        $postsRoute = new Route(
             '/posts/new',
             'new',
             PostsController::class,
@@ -40,7 +42,7 @@ class App
         );
         $this->router->addRoute($postsRoute);
         $postsRoute = new Route(
-            '/posts/show',
+            "/posts/show/id",
             'show',
             PostsController::class,
             'show',
@@ -52,7 +54,48 @@ class App
             PostsController::class,
             'read',
         );
+       /* $this->router->addRoute($postsRoute);
+        $postsRoute = new Route(
+            '/posts/update',
+            'update',
+            PostsController::class,
+            'update',
+        );*/
         $this->router->addRoute($postsRoute);
+        $postsRoute = new Route(
+            '/posts/delete/(\d+)',
+            'delete',
+            PostsController::class,
+            'delete',
+        );
+        /*$commentsRoute = new Route(
+            '/comment/index',
+            'index',
+            CommentsController::class,
+            'index',
+        );
+        $this->router->addRoute($commentsRoute);
+        $commentsRoute = new Route(
+            '/comment/new',
+            'new',
+            CommentsController::class,
+            'new',
+        );
+        $this->router->addRoute($commentsRoute);
+        $commentsRoute = new Route(
+            '/comment/read',
+            'read',
+            CommentsController::class,
+            'read',
+        );
+        $this->router->addRoute($commentsRoute);
+        $commentsRoute = new Route(
+            '/comment/update',
+            'update',
+            CommentsController::class,
+            'update',
+        );
+        $this->router->addRoute($commentsRoute);*/
         try {
             $route = $this->router->findRoute(); // On demande au routeur de trouver une route
             if ($route instanceof Route) {
