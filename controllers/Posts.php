@@ -30,4 +30,25 @@ class Posts extends AbstractController{
         $post = $this->Post->findById($id);
         $this->twig->display('posts/show.html.twig', compact('post'));
     }
+
+    
+    // TODO controller non fonctionnel 
+    public function new(){
+
+
+        if(isset($_POST['submit'])){
+            $titre = $_POST['titre'];
+            $chapo = $_POST['chapo'];
+            $contenu = $_POST['contenu'];
+           /* $creationTime = $_POST['creationTime'];
+            $updateTime = $_POST['updateTime'];
+            $id_user = $_POST['iduser'];*/
+        }else{
+            $this->twig->display('posts/new.html.twig');
+        }
+        $this->loadModel('post');
+        $post = $this->post->create($titre, $chapo, $contenu);
+        return $this->twig->display('posts/new.html.twig');
+    }
+    
 }
