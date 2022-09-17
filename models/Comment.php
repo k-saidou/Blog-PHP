@@ -1,11 +1,11 @@
 <?php 
 
-class Post extends AbstractModel{
+class Comment extends AbstractModel{
 
     public function __construct()
     {
         // Nous définissons la table par défaut de ce modèle
-        $this->table = "post";
+        $this->table = "comment";
     
         // Nous ouvrons la connexion à la base de données
         $this->getConnection();
@@ -23,6 +23,7 @@ class Post extends AbstractModel{
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC);    
     }
+            /*  $query->bindParam(':creationTime', $creationTime, PDO::PARAM_STR);
 
         // TODO test creation Post à réaliser
         public function create($titre, $chapo, $contenu){
@@ -36,9 +37,8 @@ class Post extends AbstractModel{
                 $query->bindParam(':titre', $titre, PDO::PARAM_STR);
                 $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
                 $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
-            /*  $query->bindParam(':creationTime', $creationTime, PDO::PARAM_STR);
                 $query->bindParam(':updateTime', $updateTime, PDO::PARAM_STR);
-                $query->bindParam(':id_user', $id_user, PDO::PARAM_INT);*/
+                $query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                 $query->execute();
                 $contar = $query->rowCount();
     
@@ -62,5 +62,5 @@ class Post extends AbstractModel{
                 $query->execute();
         
             }
-
+*/
 }
