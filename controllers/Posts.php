@@ -18,6 +18,12 @@ class Posts extends AbstractController{
         $this->twig->display('posts/index.html.twig', compact('posts'));
         }
 
+    public function read(){
+        $this->loadModel('Post');
+        $posts = $this->Post->getAll();
+        $this->twig->display('posts/read.html.twig', compact('posts'));
+    }
+
     /**
      * Méthode permettant d'afficher un post à partir de son id
      *
@@ -29,7 +35,29 @@ class Posts extends AbstractController{
         $this->loadModel('Post');
         $post = $this->Post->findById($id);
         $this->twig->display('posts/show.html.twig', compact('post'));
+
+        if(isset($_POST['submit'])){
+            $content = $_POST['content'];
+           /* $chapo = $_POST['chapo'];
+            $contenu = $_POST['contenu'];
+            $creationTime = $_POST['creationTime'];
+            $updateTime = $_POST['updateTime'];
+            $id_user = $_POST['iduser'];*/
+        }else{
+            $this->twig->display('comments/new.html.twig');
+        }
+        $this->loadModel('comment');
+        $comment = $this->comment->create($content);
+        return $this->twig->display('comments/new.html.twig');
     }
+
+    public function showw(string $id){
+
+        $this->loadModel('Comment');
+        $comment = $this->Comment->findById($id);
+        $this->twig->display('posts/show.html.twig', compact('comment'));
+    }
+
 
     
     // TODO controller non fonctionnel 
@@ -48,14 +76,23 @@ class Posts extends AbstractController{
         }
         $this->loadModel('post');
         $post = $this->post->create($titre, $chapo, $contenu);
-        return $this->twig->display('posts/new.html.twig');
+        header("Location: /posts/read");
+
+       // return $this->twig->display('posts/new.html.twig');
     }
 
     public function update($id){
         $this->loadModel('post');
-        $post = $this->post->update($id);                  
+        $post = $this->post->update();                  
         $this->twig->display('posts/update.html.twig');
 
+    }
+
+    public function delete($id){
+        $this->loadModel('post');
+        $post = $this->post->deletePost($id);
+        header("Location: /posts/read");
+       // $this->twig->display('posts/read.html.twig');
     }
     
 }

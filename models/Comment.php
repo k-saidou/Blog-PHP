@@ -18,27 +18,24 @@ class Comment extends AbstractModel{
      * @return void
      */
     public function findById(string $id){
-        $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetch(PDO::FETCH_ASSOC);    
-    }
-            /*  $query->bindParam(':creationTime', $creationTime, PDO::PARAM_STR);
-
+        //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+          $sql = "SELECT * FROM `post` INNER JOIN `Comment` ON post.id = comment.id_post";
+          $query = $this->_connexion->prepare($sql);
+          $query->execute();
+          return $query->fetch(PDO::FETCH_ASSOC);    
+      }
+  
         // TODO test creation Post à réaliser
-        public function create($titre, $chapo, $contenu){
+        public function create($content){
 
-            $sql = "INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
-            VALUES (:titre, :chapo, :contenu, NOW(), NULL, NULL)";
+            $sql = "INSERT INTO `comment` (`content`, `date`, `statut`, `id_user`, `id_post`)
+            VALUES (:content, NOW(), NULL, NULL, NULL)";
     
             try{
     
                 $query = $this->_connexion->prepare($sql);
-                $query->bindParam(':titre', $titre, PDO::PARAM_STR);
-                $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
-                $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
-                $query->bindParam(':updateTime', $updateTime, PDO::PARAM_STR);
-                $query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                $query->bindParam(':content', $content, PDO::PARAM_STR);
+
                 $query->execute();
                 $contar = $query->rowCount();
     
@@ -53,14 +50,19 @@ class Comment extends AbstractModel{
                 }
             }
 
-            public function update($titre, $chapo, $contenu){
-                $sql = "UPDATE post SET titre = :titre, chapo = :chapo, contenu = :contenu WHERE id = :id";
+            public function deleteCom($id) {
+                $req = $this->_connexion->prepare('DELETE FROM comment WHERE id = ?');
+                $req->execute(array($id));
+            }
+
+            public function update($content, $date, $contenu){
+                $sql = "UPDATE post SET content = :content, date = :date, contenu = :contenu WHERE id = :id";
                 $query = $this->_connexion->prepare($sql);
-                $query->bindParam(':titre', $titre, PDO::PARAM_STR);
-                $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
+                $query->bindParam(':content', $content, PDO::PARAM_STR);
+                $query->bindParam(':date', $date, PDO::PARAM_STR);
                 $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
                 $query->execute();
         
             }
-*/
+
 }

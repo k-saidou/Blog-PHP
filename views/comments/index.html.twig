@@ -1,0 +1,44 @@
+{% extends 'default.html.twig' %}
+
+
+{% block body %}
+    <h1>Commentaires index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Contenu</th>
+                <th>Date</th>
+                <th>Statut</th>
+                <th>IdUser</th>
+                <th>IdPost</th>
+                <th>Action</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td>{{ comment.id }}</td>
+                <td>{{ comment.content | u.truncate(25, '...', false) }}</td>
+                <td>{{ comment.date }}</td>
+                <td>{{ comment.statut }}</td>
+                <td>{{ comment.id_user }}</td>
+                <td>{{ comment.id_post }}</td>
+                <td>
+                    <a href="comments/show/{{comment.id}}">Valider</a>
+                    <a href="delete/{{comment.id}}">supprimer</a>
+                    <a href="show/{{comment.id}}">Voir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

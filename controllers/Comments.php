@@ -3,7 +3,7 @@
 class Comments extends AbstractController{
 
     /**
-     * Cette méthode affiche la liste des posts
+     * Cette méthode affiche la liste des comments
      *
      * @return void
      */
@@ -12,7 +12,7 @@ class Comments extends AbstractController{
         $this->loadModel('Comment');
 
         // On stocke la liste des Comment dans $comments
-        $comments = $this->Post->getAll();
+        $comments = $this->Comment->getAll();
 
         // On envoie les données à la vue lire
         $this->twig->display('comments/index.html.twig', compact('comments'));
@@ -26,9 +26,9 @@ class Comments extends AbstractController{
      */
     public function show(string $id){
 
-        $this->loadModel('Post');
-        $post = $this->Post->findById($id);
-        $this->twig->display('posts/show.html.twig', compact('post'));
+        $this->loadModel('Comment');
+        $comment = $this->Comment->findById($id);
+        $this->twig->display('comments/show.html.twig', compact('comment'));
     }
 
     
@@ -37,24 +37,31 @@ class Comments extends AbstractController{
 
 
         if(isset($_POST['submit'])){
-            $titre = $_POST['titre'];
-            $chapo = $_POST['chapo'];
+            $content = $_POST['content'];
+           /* $chapo = $_POST['chapo'];
             $contenu = $_POST['contenu'];
-           /* $creationTime = $_POST['creationTime'];
+            $creationTime = $_POST['creationTime'];
             $updateTime = $_POST['updateTime'];
             $id_user = $_POST['iduser'];*/
         }else{
-            $this->twig->display('posts/new.html.twig');
+            $this->twig->display('comments/new.html.twig');
         }
-        $this->loadModel('post');
-        $post = $this->post->create($titre, $chapo, $contenu);
-        return $this->twig->display('posts/new.html.twig');
+        $this->loadModel('comment');
+        $comment = $this->comment->create($content);
+        return $this->twig->display('comments/new.html.twig');
+    }
+
+    public function delete($id){
+        $this->loadModel('comment');
+        $comment = $this->comment->deleteCom($id);
+        header("Location: /comments/index");
+       // return $this->twig->display('comments/index.html.twig');
     }
 
     public function update($id){
-        $this->loadModel('post');
+        $this->loadModel('comment');
         $post = $this->post->update($id);                  
-        $this->twig->display('posts/update.html.twig');
+        $this->twig->display('comments/update.html.twig');
 
     }
     

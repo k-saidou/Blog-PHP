@@ -18,7 +18,8 @@ class Post extends AbstractModel{
      * @return void
      */
     public function findById(string $id){
-        $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+      //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+        $sql = "SELECT * FROM `post` INNER JOIN `Comment` ON post.id = comment.id_post";
         $query = $this->_connexion->prepare($sql);
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC);    
@@ -53,8 +54,13 @@ class Post extends AbstractModel{
                 }
             }
 
+            public function deletePost($id) {
+                $req = $this->_connexion->prepare('DELETE FROM post WHERE id = ?');
+                $req->execute(array($id));
+            }
+
             public function update($titre, $chapo, $contenu){
-                $sql = "UPDATE post SET titre = :titre, chapo = :chapo, contenu = :contenu WHERE id = :id";
+                $sql = "UPDATE `post` SET `titre` = :titre, `chapo` = :chapo, `contenu` = :contenu WHERE `id` = :id";
                 $query = $this->_connexion->prepare($sql);
                 $query->bindParam(':titre', $titre, PDO::PARAM_STR);
                 $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);

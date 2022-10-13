@@ -44,8 +44,6 @@
           <div class="card-body p-4">
             <h4 class="mb-0">Recent comments</h4>
             <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
-
-{% for comment in post.comment %}
             <div class="d-flex flex-start">
               <img class="rounded-circle shadow-1-strong me-3"
                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
@@ -54,22 +52,56 @@
                 <h6 class="fw-bold mb-1">Maggie Marsh</h6>
                 <div class="d-flex align-items-center mb-3">
                   <p class="mb-0">
-                    {{comment.date}}
+                    {{post.date}}
+                    <span class="badge bg-primary">Pending</span>
+                  </p>
+                  <p class="mb-0">
+                    {{post.id}}
                     <span class="badge bg-primary">Pending</span>
                   </p>
                   <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
                   <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
                   <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
                 </div>
-                <p class="mb-0">
-                  {{comment.content}}
-                </p>
               </div>
             </div>
           </div>
-    {% endfor %}
           <hr class="my-0" />
 
+    
+<div class="container">
+
+  {% for comment in comments %}
+
+  <div class="row">
+<div class="">
+<div class="card  mb-3 bg-secondary " >
+
+  <small>Ce commentaire a été posté le{{comment.date}} par </small>
+  <div class="card-body">
+    <p class="card-text">{{comment.content}}</p>
+  </div>
+</div>
+
+</div>
+</div>
+{% endfor %}
+
+</div>
+
+
+<form action="" method ="POST">
+    <div class="form-group">
+    <br>
+    <div class="form-group">
+        <label for="content" >Ecrire un Commentaire</label>
+        <textarea name="content" id="content"  rows="8" class="form-control">
+        </textarea>
+    </div>
+    <br>
+    <br><br>
+    <button type="submit" name="submit" class="btn btn-primary">Enregistrer</button>
+</form>
         </div>
       </div>
     </div>
