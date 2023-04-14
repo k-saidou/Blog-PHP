@@ -1,5 +1,6 @@
 <?php 
 
+
 class Posts extends AbstractController{
 
     /**
@@ -42,13 +43,14 @@ class Posts extends AbstractController{
             $contenu = $_POST['contenu'];
             $creationTime = $_POST['creationTime'];
             $updateTime = $_POST['updateTime'];
-            $id_user = $_POST['iduser'];*/
+            $id_user = $_POST['iduser'];*/        
+            
+            $this->loadModel('Comment');
+            $comment = $this->comment->create($content);
         }else{
             $this->twig->display('comments/new.html.twig');
         }
-        $this->loadModel('comment');
-        $comment = $this->comment->create($content);
-        return $this->twig->display('comments/new.html.twig');
+
     }
 
     public function showw(string $id){
@@ -74,23 +76,35 @@ class Posts extends AbstractController{
         }else{
             $this->twig->display('posts/new.html.twig');
         }
-        $this->loadModel('post');
-        $post = $this->post->create($titre, $chapo, $contenu);
+        $this->loadModel('Post');
+        $post = $this->Post->create($titre, $chapo, $contenu);
         header("Location: /posts/read");
 
        // return $this->twig->display('posts/new.html.twig');
     }
 
     public function update($id){
-        $this->loadModel('post');
-        $post = $this->post->update();                  
-        $this->twig->display('posts/update.html.twig');
+        $this->loadModel('Post');
+        var_dump($_POST);
+
+        if(isset($_POST['submit'])){
+            $titre = $_POST['titre'];
+            $chapo = $_POST['chapo'];
+            $contenu = $_POST['content'];
+        $post = $this->Post->update($titre,$chapo,$contenu);   
+        header("Location: /posts/read");
+ 
+        }else{
+            $post = $this->Post->findById($id);
+            $this->twig->display('posts/update.html.twig', compact('post'));   
+
+        }              
 
     }
 
     public function delete($id){
-        $this->loadModel('post');
-        $post = $this->post->deletePost($id);
+        $this->loadModel('Post');
+        $post = $this->Post->deletePost($id);
         header("Location: /posts/read");
        // $this->twig->display('posts/read.html.twig');
     }

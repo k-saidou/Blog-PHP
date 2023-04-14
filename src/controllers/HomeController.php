@@ -1,7 +1,10 @@
 <?php 
 
-class Home extends AbstractController{
+
+class HomeController extends AbstractController{
+
     public function index(){
+
                 // On instancie le modèle "Article"
                 $this->loadModel('Post');
 

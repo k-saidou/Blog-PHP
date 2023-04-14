@@ -1,6 +1,6 @@
 <?php 
 
-class Comments extends AbstractController{
+class CommentsController extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des comments
@@ -58,6 +58,7 @@ class Comments extends AbstractController{
        // return $this->twig->display('comments/index.html.twig');
     }
 
+    
     public function update($id){
         $this->loadModel('comment');
         $post = $this->post->update($id);                  

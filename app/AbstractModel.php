@@ -1,5 +1,6 @@
 <?php 
 
+
 abstract class AbstractModel{
 
     // Informations de la base de données

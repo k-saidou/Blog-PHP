@@ -1,6 +1,6 @@
 <?php 
 
-class Comment extends AbstractModel{
+class CommentModel extends AbstractModel{
 
     public function __construct()
     {
@@ -19,8 +19,9 @@ class Comment extends AbstractModel{
      */
     public function findById(string $id){
         //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
-          $sql = "SELECT * FROM `post` INNER JOIN `Comment` ON post.id = comment.id_post";
+          $sql = "SELECT * FROM `comment` WHERE comment.id_post = :id";
           $query = $this->_connexion->prepare($sql);
+          $query->bindParam(':id', $id, PDO::PARAM_INT);
           $query->execute();
           return $query->fetch(PDO::FETCH_ASSOC);    
       }
