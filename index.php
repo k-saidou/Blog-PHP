@@ -1,7 +1,5 @@
 <?php
 
-
-
 session_start();
 
 define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
@@ -47,7 +45,7 @@ if($params[0] != ""){
     require_once(ROOT.'src/controllers/HomeController.php');
 
     // On instancie le contrôleur
-    $controller = new HomeController();
+    $controller = new Home();
 
     // On appelle la méthode index
     $controller->index();

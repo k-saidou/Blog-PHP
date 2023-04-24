@@ -1,7 +1,7 @@
 <?php 
 
 
-class HomeController extends AbstractController{
+class Home extends AbstractController{
 
     public function index(){
 

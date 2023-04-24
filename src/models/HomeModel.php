@@ -1,7 +1,7 @@
 <?php 
 
 
-class HomeModel extends AbstractModel{
+class Home extends AbstractModel{
 
     public function __construct()
     {

@@ -18,12 +18,28 @@ class Post extends AbstractModel{
      * @return void
      */
     public function findById(string $id){
-      //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
-        $sql = "SELECT * FROM `post` INNER JOIN `Comment` ON post.id = comment.id_post";
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetch(PDO::FETCH_ASSOC);    
-    }
+        //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+          $sql = "SELECT * FROM `post` WHERE id = $id ";
+          $query = $this->_connexion->prepare($sql);
+          $query->execute();
+          return $query->fetch(PDO::FETCH_ASSOC);    
+      }  
+      
+
+      // TODO PROBLEME AFFICHAGE POST
+      /**
+      * Retourne un post en fonction de son id
+      *
+      * @param int $id
+      * @return void
+      */
+     public function findById2(string $id){
+       //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+         $sql = "SELECT * FROM `post` INNER JOIN `Comment` ON post.id = comment.id_post";
+         $query = $this->_connexion->prepare($sql);
+         $query->execute();
+         return $query->fetch(PDO::FETCH_ASSOC);    
+     }
 
         // TODO test creation Post à réaliser
         public function create($titre, $chapo, $contenu){
@@ -59,12 +75,15 @@ class Post extends AbstractModel{
                 $req->execute(array($id));
             }
 
-            public function update($titre, $chapo, $contenu){
+            public function update($titre, $chapo, $contenu, $id){
+                //UPDATE `post` SET `titre` = 'titre modifie' , `chapo` = ' chapo modifie' , `contenu` = 'contenu modifie' WHERE `id` = 3;
+
                 $sql = "UPDATE `post` SET `titre` = :titre, `chapo` = :chapo, `contenu` = :contenu WHERE `id` = :id";
                 $query = $this->_connexion->prepare($sql);
                 $query->bindParam(':titre', $titre, PDO::PARAM_STR);
                 $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
                 $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
+                $query->bindParam(':id', $id, PDO::PARAM_INT);
                 $query->execute();
         
             }

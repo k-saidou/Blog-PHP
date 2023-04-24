@@ -1,6 +1,6 @@
 <?php 
 
-class CommentModel extends AbstractModel{
+class Comment extends AbstractModel{
 
     public function __construct()
     {
@@ -55,6 +55,11 @@ class CommentModel extends AbstractModel{
                 $req = $this->_connexion->prepare('DELETE FROM comment WHERE id = ?');
                 $req->execute(array($id));
             }
+            public function deletePost($id) {
+                $req = $this->_connexion->prepare('DELETE FROM post WHERE id = ?');
+                $req->execute(array($id));
+            }
+
 
             public function update($content, $date, $contenu){
                 $sql = "UPDATE post SET content = :content, date = :date, contenu = :contenu WHERE id = :id";

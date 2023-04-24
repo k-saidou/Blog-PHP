@@ -1,6 +1,6 @@
 <?php 
 
-class CommentsController extends AbstractController{
+class Comments extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des comments
@@ -38,11 +38,12 @@ class CommentsController extends AbstractController{
 
         if(isset($_POST['submit'])){
             $content = $_POST['content'];
-           /* $chapo = $_POST['chapo'];
-            $contenu = $_POST['contenu'];
-            $creationTime = $_POST['creationTime'];
-            $updateTime = $_POST['updateTime'];
-            $id_user = $_POST['iduser'];*/
+           /*
+            $date = $_POST['date'];
+            $statut = $_POST['statut'];
+            $id_user = $_POST['iduser'];
+            $id_post = $_POST['idpost'];
+            */
         }else{
             $this->twig->display('comments/new.html.twig');
         }
@@ -51,11 +52,11 @@ class CommentsController extends AbstractController{
         return $this->twig->display('comments/new.html.twig');
     }
 
+    // TODO FONCTIONNE
     public function delete($id){
         $this->loadModel('comment');
         $comment = $this->comment->deleteCom($id);
         header("Location: /comments/index");
-       // return $this->twig->display('comments/index.html.twig');
     }
 
     

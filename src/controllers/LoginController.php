@@ -1,7 +1,7 @@
 <?php 
 
 
-class LoginController extends AbstractController{
+class Login extends AbstractController{
 
     public function log(){
 

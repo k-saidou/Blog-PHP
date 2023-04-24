@@ -1,7 +1,7 @@
 <?php 
 
 
-class LoginsModel extends AbstractModel{
+class Logins extends AbstractModel{
 
     public function __construct()
     {

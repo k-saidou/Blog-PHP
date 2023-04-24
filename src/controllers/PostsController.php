@@ -19,6 +19,7 @@ class Posts extends AbstractController{
         $this->twig->display('posts/index.html.twig', compact('posts'));
         }
 
+        // TODO FONCTIONNEL
     public function read(){
         $this->loadModel('Post');
         $posts = $this->Post->getAll();
@@ -37,32 +38,32 @@ class Posts extends AbstractController{
         $post = $this->Post->findById($id);
         $this->twig->display('posts/show.html.twig', compact('post'));
 
-        if(isset($_POST['submit'])){
-            $content = $_POST['content'];
-           /* $chapo = $_POST['chapo'];
-            $contenu = $_POST['contenu'];
-            $creationTime = $_POST['creationTime'];
-            $updateTime = $_POST['updateTime'];
-            $id_user = $_POST['iduser'];*/        
-            
-            $this->loadModel('Comment');
-            $comment = $this->comment->create($content);
-        }else{
-            $this->twig->display('comments/new.html.twig');
-        }
-
     }
 
-    public function showw(string $id){
+    
+    // TODO PROBLEME AFFICHAGE POST
+    public function update(string $id){
+        $this->loadModel('Post');
+        $post = $this->Post->findById($id);
 
-        $this->loadModel('Comment');
-        $comment = $this->Comment->findById($id);
-        $this->twig->display('posts/show.html.twig', compact('comment'));
+        if(isset($_POST['submit'])){
+            $titre = $_POST['titre'];
+            $chapo = $_POST['chapo'];
+            $contenu = $_POST['content'];
+        $post = $this->Post->update($titre,$chapo,$contenu,$id);   
+        header("Location: /posts/read");
+ 
+        }else{
+            $post = $this->Post->findById($id);
+            $this->twig->display('posts/update.html.twig', compact('post'));   
+
+        }              
+
     }
 
 
     
-    // TODO controller non fonctionnel 
+    // TODO fonctionnel, MANQUE DATE ET ID
     public function new(){
 
 
@@ -82,31 +83,13 @@ class Posts extends AbstractController{
 
        // return $this->twig->display('posts/new.html.twig');
     }
-
-    public function update($id){
-        $this->loadModel('Post');
-        var_dump($_POST);
-
-        if(isset($_POST['submit'])){
-            $titre = $_POST['titre'];
-            $chapo = $_POST['chapo'];
-            $contenu = $_POST['content'];
-        $post = $this->Post->update($titre,$chapo,$contenu);   
-        header("Location: /posts/read");
- 
-        }else{
-            $post = $this->Post->findById($id);
-            $this->twig->display('posts/update.html.twig', compact('post'));   
-
-        }              
-
-    }
-
+  
+    
+    // FONCTIONNEL 
     public function delete($id){
         $this->loadModel('Post');
         $post = $this->Post->deletePost($id);
         header("Location: /posts/read");
-       // $this->twig->display('posts/read.html.twig');
     }
     
 }

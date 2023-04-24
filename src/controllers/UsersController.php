@@ -1,7 +1,6 @@
-<?php 
+<?php
 
-
-class UsersController extends AbstractController{
+class Users extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des Users
@@ -49,7 +48,6 @@ class UsersController extends AbstractController{
         $user = $this->user->create($firstname, $lastname, $email, $password);
         header("Location: /users/read");
 
-       // return $this->twig->display('posts/new.html.twig');
     }
 
 
@@ -57,7 +55,6 @@ class UsersController extends AbstractController{
         $this->loadModel('user');
         $user = $this->user->deleteUser($id);
         header("Location: /users/read");
-       // $this->twig->display('users/read.html.twig');
     }
     
 }
