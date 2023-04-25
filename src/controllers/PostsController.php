@@ -32,7 +32,7 @@ class Posts extends AbstractController{
      * @param int $id
      * @return void
      */
-    public function show(string $id){
+    public function show($id){
 
         $this->loadModel('Post');
         $post = $this->Post->findById($id);
@@ -42,7 +42,7 @@ class Posts extends AbstractController{
 
     
     // TODO PROBLEME AFFICHAGE POST
-    public function update(string $id){
+    public function update($id){
         $this->loadModel('Post');
         $post = $this->Post->findById($id);
 

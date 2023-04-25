@@ -27,6 +27,9 @@ class Logins extends AbstractModel{
                 //$connect = $query->rowCount();
     
                 if(count($connect)>0){
+
+                    echo 'Connecter';
+
                     return $connect[0];
                 }else{
                     echo "Erreur";

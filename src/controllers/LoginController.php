@@ -15,7 +15,7 @@ class Login extends AbstractController{
             $this->loadModel('Logins');
             $user = $this->Logins->connexion($email, $password);
             if(is_array($user)){
-                $_SESSION["userId"]=$user["id"];
+                $_SESSION["id"]=$user["id"];
                 header("Location: /");               
     
             }else{

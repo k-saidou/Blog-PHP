@@ -18,10 +18,10 @@ class Users extends AbstractController{
         $this->twig->display('users/index.html.twig', compact('users'));
         }
 
-        public function read(){
+        public function show($id){
             $this->loadModel('User');
-            $users = $this->User->getAll();
-            $this->twig->display('users/read.html.twig', compact('users'));
+            $user = $this->User->findByID($id);
+            $this->twig->display('users/show.html.twig', compact('user'));
         }
 
         public function login(){
@@ -49,6 +49,27 @@ class Users extends AbstractController{
         header("Location: /users/read");
 
     }
+
+        // TODO PROBLEME AFFICHAGE POST
+        public function update($id){
+            $this->loadModel('User');
+            $user = $this->User->findById($id);
+    
+            if(isset($_POST['submit'])){
+                $firstname = $_POST['firstname'];
+                $lastname = $_POST['lastname'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+            $user = $this->User->update($firstname,$lastname,$email,$password,$id);   
+            header("Location: /users/index");
+     
+            }else{
+                $user = $this->User->findById($id);
+                $this->twig->display('users/update.html.twig', compact('user'));   
+    
+            }              
+    
+        }
 
 
     public function delete($id){

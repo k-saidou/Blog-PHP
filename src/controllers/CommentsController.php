@@ -24,12 +24,28 @@ class Comments extends AbstractController{
      * @param int $id
      * @return void
      */
-    public function show(string $id){
+    public function show( $id){
 
         $this->loadModel('Comment');
         $comment = $this->Comment->findById($id);
         $this->twig->display('comments/show.html.twig', compact('comment'));
     }
+
+    public function show2( $id){
+
+        $this->loadModel('Comment');
+        $comment = $this->Comment->findById($id);
+        $this->twig->display('posts/show.html.twig', compact('comment'));
+    }
+
+    public function show3($id, $id_post, $statut){
+        var_dump($id);
+
+        $this->loadModel('Comment');
+        $comment = $this->Comment->findById2($id_post, $statut);
+        $this->twig->display('posts/show.html.twig', compact('comment'));
+
+        }
 
     
     // TODO controller non fonctionnel 
@@ -59,12 +75,37 @@ class Comments extends AbstractController{
         header("Location: /comments/index");
     }
 
-    
+    /*
     public function update($id){
         $this->loadModel('comment');
         $post = $this->post->update($id);                  
         $this->twig->display('comments/update.html.twig');
 
     }
+        */
+
+        // TODO PROBLEME AFFICHAGE POST
+        public function update($id){
+            $this->loadModel('Comment');
+            $comment = $this->Comment->findById($id);
+            var_dump($id);
+            var_dump($comment);
+
+
+
+    
+            if(isset($_POST['submit'])){
+                $content = $_POST['content'];
+                $comment = $this->Comment->update($comment,$id);   
+                header("Location: /comments/index");
+
+     
+            }else{
+                $comment = $this->Comment->findById($id);
+                $this->twig->display('comments/update.html.twig', compact('comment'));   
+    
+            }              
+    
+        }   
     
 }

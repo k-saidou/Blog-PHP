@@ -17,7 +17,7 @@ class Post extends AbstractModel{
      * @param int $id
      * @return void
      */
-    public function findById(string $id){
+    public function findById($id){
         //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
           $sql = "SELECT * FROM `post` WHERE id = $id ";
           $query = $this->_connexion->prepare($sql);
@@ -25,21 +25,6 @@ class Post extends AbstractModel{
           return $query->fetch(PDO::FETCH_ASSOC);    
       }  
       
-
-      // TODO PROBLEME AFFICHAGE POST
-      /**
-      * Retourne un post en fonction de son id
-      *
-      * @param int $id
-      * @return void
-      */
-     public function findById2(string $id){
-       //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
-         $sql = "SELECT * FROM `post` INNER JOIN `Comment` ON post.id = comment.id_post";
-         $query = $this->_connexion->prepare($sql);
-         $query->execute();
-         return $query->fetch(PDO::FETCH_ASSOC);    
-     }
 
         // TODO test creation Post à réaliser
         public function create($titre, $chapo, $contenu){
@@ -76,7 +61,6 @@ class Post extends AbstractModel{
             }
 
             public function update($titre, $chapo, $contenu, $id){
-                //UPDATE `post` SET `titre` = 'titre modifie' , `chapo` = ' chapo modifie' , `contenu` = 'contenu modifie' WHERE `id` = 3;
 
                 $sql = "UPDATE `post` SET `titre` = :titre, `chapo` = :chapo, `contenu` = :contenu WHERE `id` = :id";
                 $query = $this->_connexion->prepare($sql);
