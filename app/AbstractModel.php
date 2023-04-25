@@ -71,4 +71,22 @@ abstract class AbstractModel{
         return $query->fetchAll();    
     }
 
+        /**
+     * Retourne un post en fonction de son id
+     *
+     * @param int $id
+     * @return void
+     */
+    public function findById2( $id_post, $statut){
+        //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+        //  $sql = "SELECT * FROM `comment` WHERE comment.id_post = :id";
+          $sql = "SELECT * FROM `comment` WHERE `id_post`= :id_post AND `statut`='Accept' ORDER BY `date` ASC";
+
+          $query = $this->_connexion->prepare($sql);
+          $query->bindParam(':id_post', $id_post, PDO::PARAM_INT);
+          $query->bindParam(':statut', $statut, PDO::PARAM_STR);
+          $query->execute();
+          return $query->fetch(PDO::FETCH_ASSOC);    
+      }
+
 }
