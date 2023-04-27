@@ -6,6 +6,7 @@
             "email": "saidoukeita12@gmail.com"
         }
     ],
+
     "require": {
         "twig/twig": "^3.4",
         "twig/string-extra": "^3.4"

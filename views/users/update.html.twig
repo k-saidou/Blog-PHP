@@ -1,0 +1,55 @@
+
+{% extends "default.html.twig" %}
+
+{% block body %}
+
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Modifier votre compte</h1>
+                            </div>
+                            <form action="" method ="POST">
+
+                                <div class="form-group">
+                                    <label for="firstname" >Firstname </label>
+                                    <input type="text" class="form-control" id="firstname" name="firstname"  value=
+                                    {{user.firstname}} >
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="lastname" >Lastname</label>
+                                    <input type="text" class="form-control" id="lastname" name="lastname" value=
+                                    {{user.lastname}} >
+                                </div> 
+                                <br>
+                                <div class="form-group">
+                                    <label for="email" >Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" value=
+                                    {{user.email}} >
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label for="password" >Password</label>
+                                    <input type="text" class="form-control" id="password" name="password" value=
+                                    {{user.password}} >
+                                </div>
+                                <br>
+                                <br><br>
+                                <button type="submit" name="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

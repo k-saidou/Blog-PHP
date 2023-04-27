@@ -1,14 +1,17 @@
 <?php 
 
-class Main extends Controller{
+
+class Home extends AbstractController{
+
     public function index(){
+
                 // On instancie le modèle "Article"
                 $this->loadModel('Post');
 
                 // On stocke la liste des articles dans $articles
-                $posts = $this->Post->getAll();
+                $posts = $this->Post->getLast();
         
-                $this->twig->display('main/index.html.twig', compact('posts'));
+                $this->twig->display('home/index.html.twig', compact('posts'));
                 }
  
 }

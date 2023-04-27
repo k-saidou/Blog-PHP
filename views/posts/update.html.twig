@@ -1,0 +1,34 @@
+{% extends 'default.html.twig' %}
+
+
+{% block  body %}
+<div class="container">
+<h1>Modifier</h1>
+
+<form action="" method ="POST">
+    <div class="form-group">
+        <label for="titre" >Titre de l'article</label>
+        <input type="text" class="form-control" id="titre" name="titre" value=
+        {{post.titre}} >
+    </div>
+        <div class="form-group">
+        <label for="title" >Le châpo</label>
+        <input type="text" class="form-control" id="title" name="chapo" value=
+        {{post.chapo}} >
+    </div>
+    <br>
+    <div class="form-group">
+        <input type="hidden" class="form-control" id="token" name="token" value="{{token}}">  
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="content" >Contenu de l'article</label>
+        <textarea name="content" id="content"  rows="8" class="form-control">
+        {{post.contenu}} 
+        </textarea>
+    </div>
+    <br><br>
+    <button name="submit" type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+</form>
+</div>
+{% endblock %}

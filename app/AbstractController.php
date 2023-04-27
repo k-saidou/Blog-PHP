@@ -1,12 +1,13 @@
 <?php
 
+
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\Extra\String\StringExtension;
 use Twig\Extra\CssInliner\CssInlinerExtension;
 
 
-abstract class Controller{
+abstract class AbstractController{
 
 
     /**
@@ -16,8 +17,11 @@ abstract class Controller{
      * @return void
      */
     public function loadModel(string $model){
+
+  
+
         // On va chercher le fichier correspondant au modèle souhaité
-        require_once(ROOT.'models/'.$model.'.php');
+        require_once(ROOT.'src/models/'.$model.'Model.php');
         
         // On crée une instance de ce modèle. Ainsi "Article" sera accessible par $this->Article
         $this->$model = new $model();

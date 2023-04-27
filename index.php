@@ -1,11 +1,14 @@
 <?php
 
+session_start();
+
 define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 
 require 'vendor/autoload.php';
 
-require_once(ROOT. 'app/Model.php');
-require_once(ROOT. 'app/Controller.php');
+require_once(ROOT. 'app/AbstractModel.php');
+require_once(ROOT. 'app/AbstractController.php');
+
 
 // On sépare les paramètres et on les met dans le tableau $params
 $params = explode('/', $_GET['p']);
@@ -19,7 +22,7 @@ if($params[0] != ""){
     $action = isset($params[1]) ? $params[1] : 'index';
 
     // On appelle le contrôleur
-    require_once(ROOT.'controllers/'.$controller.'.php');
+    require_once(ROOT.'src/controllers/'.$controller.'Controller.php');
 
     // On instancie le contrôleur
     $controller = new $controller();
@@ -39,10 +42,10 @@ if($params[0] != ""){
 }else{
     // Ici aucun paramètre n'est défini
     // On appelle le contrôleur par défaut
-    require_once(ROOT.'controllers/Main.php');
+    require_once(ROOT.'src/controllers/HomeController.php');
 
     // On instancie le contrôleur
-    $controller = new Main();
+    $controller = new Home();
 
     // On appelle la méthode index
     $controller->index();

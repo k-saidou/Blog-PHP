@@ -1,0 +1,35 @@
+
+{% extends "default.html.twig" %}
+
+{% block body %}
+
+
+<div class="container">
+<h1>CREER UN POST</h1>
+
+<form action="" method ="POST">
+    <div class="form-group">
+        <label for="titre" >Titre du post</label>
+        <input type="text" class="form-control" id="titre" name="titre" placeholder=
+        "Le titre du post">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="chapo" >Chapô</label>
+        <input type="text" class="form-control" id="chapo" name="chapo" placeholder=
+        "Le chapo">
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="contenu" >Contenu du post</label>
+        <textarea name="contenu" id="contenu"  rows="8" class="form-control" placeholder=
+        "contenu du post">
+        </textarea>
+    </div>
+    <br>
+    <br><br>
+    <button type="submit" name="submit" class="btn btn-primary">Enregistrer</button>
+</form>
+</div>
+
+{% endblock %}
