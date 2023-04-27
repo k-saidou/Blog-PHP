@@ -24,6 +24,14 @@ class Comment extends AbstractModel{
           $query->execute();
           return $query->fetch(PDO::FETCH_ASSOC);    
       }  
+
+      public function showComment($id_post){
+
+        $sql = "SELECT * FROM `comment` WHERE id_post = $id_post AND `statut`='Accept' ORDER BY `date` ASC ";
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);    
+    } 
         
 
   

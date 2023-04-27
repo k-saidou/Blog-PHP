@@ -40,7 +40,6 @@ class Posts extends AbstractController{
 
     }
 
-    
     // TODO PROBLEME AFFICHAGE POST
     public function update($id){
         $this->loadModel('Post');

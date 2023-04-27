@@ -24,6 +24,8 @@ class Post extends AbstractModel{
           $query->execute();
           return $query->fetch(PDO::FETCH_ASSOC);    
       }  
+
+    
       
 
         // TODO test creation Post à réaliser

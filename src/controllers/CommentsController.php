@@ -24,28 +24,19 @@ class Comments extends AbstractController{
      * @param int $id
      * @return void
      */
-    public function show( $id){
+    public function show( $id, $id_post){
 
         $this->loadModel('Comment');
         $comment = $this->Comment->findById($id);
         $this->twig->display('comments/show.html.twig', compact('comment'));
-    }
-
-    public function show2( $id){
 
         $this->loadModel('Comment');
-        $comment = $this->Comment->findById($id);
+        $comment = $this->Comment->showComment($id_post);
         $this->twig->display('posts/show.html.twig', compact('comment'));
+
     }
 
-    public function show3($id, $id_post, $statut){
-        var_dump($id);
 
-        $this->loadModel('Comment');
-        $comment = $this->Comment->findById2($id_post, $statut);
-        $this->twig->display('posts/show.html.twig', compact('comment'));
-
-        }
 
     
     // TODO controller non fonctionnel 
