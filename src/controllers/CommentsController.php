@@ -24,23 +24,20 @@ class Comments extends AbstractController{
      * @param int $id
      * @return void
      */
-    public function show( $id, $id_post){
+    public function show( $id){
 
         $this->loadModel('Comment');
         $comment = $this->Comment->findById($id);
         $this->twig->display('comments/show.html.twig', compact('comment'));
-
-        $this->loadModel('Comment');
-        $comment = $this->Comment->showComment($id_post);
-        $this->twig->display('posts/show.html.twig', compact('comment'));
 
     }
 
 
 
     
-    // TODO controller non fonctionnel 
     public function new(){
+
+        if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
 
 
         if(isset($_POST['submit'])){
@@ -57,26 +54,23 @@ class Comments extends AbstractController{
         $this->loadModel('comment');
         $comment = $this->comment->create($content);
         return $this->twig->display('comments/new.html.twig');
+
+    }else{
+        header("Location: /login/log");
+
+    }
     }
 
-    // TODO FONCTIONNE
     public function delete($id){
         $this->loadModel('comment');
         $comment = $this->comment->deleteCom($id);
         header("Location: /comments/index");
     }
 
-    /*
-    public function update($id){
-        $this->loadModel('comment');
-        $post = $this->post->update($id);                  
-        $this->twig->display('comments/update.html.twig');
 
-    }
-        */
-
-        // TODO PROBLEME AFFICHAGE POST
         public function update($id){
+            if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
+
             $this->loadModel('Comment');
             $comment = $this->Comment->findById($id);
             var_dump($id);
@@ -87,15 +81,18 @@ class Comments extends AbstractController{
     
             if(isset($_POST['submit'])){
                 $content = $_POST['content'];
-                $comment = $this->Comment->update($comment,$id);   
+                $comment = $this->Comment->update($content,$id);   
                 header("Location: /comments/index");
 
      
             }else{
-                $comment = $this->Comment->findById($id);
                 $this->twig->display('comments/update.html.twig', compact('comment'));   
     
-            }              
+            }             
+        }else{
+            header("Location: /login/log");
+    
+        } 
     
         }   
     

@@ -36,12 +36,18 @@ class Posts extends AbstractController{
 
         $this->loadModel('Post');
         $post = $this->Post->findById($id);
-        $this->twig->display('posts/show.html.twig', compact('post'));
+        $this->loadModel('Comment');
+        $comments = $this->Comment->showComment($id);
+        var_dump($comments);
+        $this->twig->display('posts/show.html.twig', compact('post','comments'));
 
     }
 
     // TODO PROBLEME AFFICHAGE POST
     public function update($id){
+        if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
+
+        
         $this->loadModel('Post');
         $post = $this->Post->findById($id);
 
@@ -57,14 +63,18 @@ class Posts extends AbstractController{
             $this->twig->display('posts/update.html.twig', compact('post'));   
 
         }              
+    }else{
+        header("Location: /login/log");
 
+    }
     }
 
 
     
     // TODO fonctionnel, MANQUE DATE ET ID
     public function new(){
-
+        
+        if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
 
         if(isset($_POST['submit'])){
             $titre = $_POST['titre'];
@@ -79,8 +89,11 @@ class Posts extends AbstractController{
         $this->loadModel('Post');
         $post = $this->Post->create($titre, $chapo, $contenu);
         header("Location: /posts/read");
+    }else{
+        header("Location: /login/log");
 
-       // return $this->twig->display('posts/new.html.twig');
+    }
+
     }
   
     

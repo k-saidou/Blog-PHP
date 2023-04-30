@@ -15,20 +15,23 @@ class Logins extends AbstractModel{
 
         public function connexion($email, $password){
 
-            $sql = "SELECT * FROM `users` WHERE email = '$email' AND password = '$password'";
+            $sql = "SELECT `id` FROM `users` WHERE email = '$email' AND password = '$password'";
             try{
     
                 $query = $this->_connexion->prepare($sql);
                 $query->bindParam(':email', $email, PDO::PARAM_STR);
                 $query->bindParam(':password', $password, PDO::PARAM_STR);
+               // $query->bindParam(':id', $id, PDO::PARAM_INT);
                 $query->execute();
                 $connect = $query->fetchAll();
                 //$connect = $query->rowCount();
     
-                if(count($connect)>0){                    
+                if(count($connect)>0){           
+                    var_dump($connect);
+                    $_SESSION['id'] = $connect[0]['id'];         
 
-                    echo $_SESSION['email'];
-                    echo $_SESSION['password'];
+                    echo $_SESSION['id'];
+
 
                     return $connect[0];
                 }else{
