@@ -1,6 +1,7 @@
 {% extends "default.html.twig" %}
 
 {% block body %}
+
 <!-- Page Header-->
 <header class="masthead" style="background-image: url('http://localhost/blog-php/public/img/home-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
@@ -45,67 +46,44 @@
 {% endfor %}
 <div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="posts/index/">Voir tous les posts →</a></div>
 
+
 <div class="container">
 
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="text-center col-lg-12">
-                            <div class="p-5">
+<!-- Outer Row -->
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="text-center col-lg-12">
+                        <div class="p-5">
                             <main class="mb-4" >
                             <h1>CONTACT</h1>
                             <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
                             <div class="my-5">
-                                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+                                <form action="" method ="POST">
                                     <div class="form-floating">
-                                        <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                        <input class="form-control" name="name" id="name" type="text" placeholder="Enter your name..." />
                                         <label for="name">Name</label>
-                                        <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
                                     </div>
                                     <div class="form-floating">
-                                        <input class="form-control" id="email" type="email" placeholder="Enter your email..." data-sb-validations="required,email" />
+                                        <input class="form-control" name="email" id="email" type="email" placeholder="Enter your email..." />
                                         <label for="email">Email address</label>
-                                        <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                        <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                                     </div>
                                     <div class="form-floating">
-                                        <input class="form-control" id="phone" type="tel" placeholder="Enter your phone number..." data-sb-validations="required" />
+                                        <input class="form-control" name="phoneNumber" id="phone" type="phone" placeholder="Enter your phone number..." />
                                         <label for="phone">Phone Number</label>
-                                        <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
                                     </div>
                                     <div class="form-floating">
-                                        <textarea class="form-control" id="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
+                                        <textarea class="form-control" name="message" id="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
                                         <label for="message">Message</label>
-                                        <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
                                     </div>
                                     <br />
-                                    <!-- Submit success message-->
-                                    <!---->
-                                    <!-- This is what your users will see when the form-->
-                                    <!-- has successfully submitted-->
-                                    <div class="d-none" id="submitSuccessMessage">
-                                        <div class="text-center mb-3">
-                                            <div class="fw-bolder">Form submission successful!</div>
-                                            To activate this form, sign up at
-                                            <br />
-                                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                        </div>
-                                    </div>
-                                    <!-- Submit error message-->
-                                    <!---->
-                                    <!-- This is what your users will see when there is-->
-                                    <!-- an error submitting the form-->
-                                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                                    <!-- Submit Button-->
-                                    <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+                                    <button type="submit" name="submit" class="btn btn-primary">Envoyer</button>
                                 </form>
                             </div>
                             </main>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,6 +91,5 @@
         </div>
     </div>
 </div>
-
 
 {% endblock %}

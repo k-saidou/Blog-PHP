@@ -9,8 +9,6 @@ class Login extends AbstractController{
         if(isset($_POST['submit'])){
             $email = $_POST['email'];
             $password = $_POST['password'];
-
-            var_dump($_POST);
             
             $this->loadModel('Logins');
             $login = $this->Logins->connexion($email, $password);

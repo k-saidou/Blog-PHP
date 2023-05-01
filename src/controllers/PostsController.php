@@ -38,7 +38,6 @@ class Posts extends AbstractController{
         $post = $this->Post->findById($id);
         $this->loadModel('Comment');
         $comments = $this->Comment->showComment($id);
-        var_dump($comments);
         $this->twig->display('posts/show.html.twig', compact('post','comments'));
 
     }

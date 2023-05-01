@@ -46,7 +46,7 @@ class Users extends AbstractController{
         }
         $this->loadModel('user');
         $user = $this->user->create($firstname, $lastname, $email, $password);
-        header("Location: /users/read");
+        header("Location: /login/connect");
 
     }
 
