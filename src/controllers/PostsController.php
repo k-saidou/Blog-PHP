@@ -38,6 +38,19 @@ class Posts extends AbstractController{
         $post = $this->Post->findById($id);
         $this->loadModel('Comment');
         $comments = $this->Comment->showComment($id);
+
+
+            if(isset($_POST['submit'])){
+                $content = $_POST['content'];
+                $id_user = $_SESSION['id']; 
+                $id_post = $id;      
+                
+                $this->loadModel('comment');
+                $comment = $this->comment->create($content, $id_user, $id_post);
+               
+            }
+           
+    
         $this->twig->display('posts/show.html.twig', compact('post','comments'));
 
     }

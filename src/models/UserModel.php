@@ -29,8 +29,8 @@ class User extends AbstractModel{
         // TODO test creation user à réaliser
         public function create($firstname, $lastname, $email,$password){
 
-            $sql = "INSERT INTO `users` ( `firstname`, `lastname`, `email`, `password`, `role`)
-            VALUES (:firstname, :lastname, :email, :password, NULL)";
+            $sql = "INSERT INTO `users` ( `firstname`, `lastname`, `email`, `password`)
+            VALUES (:firstname, :lastname, :email, :password)";
     
             try{
     

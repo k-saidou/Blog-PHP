@@ -2,7 +2,10 @@
 
 
 {% block body %}
+<br><br><br>
+
     <h1>Commentaires index</h1>
+<br>
 
     <table class="table">
         <thead>
@@ -28,7 +31,12 @@
                 <td>{{ comment.id_user }}</td>
                 <td>{{ comment.id_post }}</td>
                 <td>
-                    <a href="comments/show/{{comment.id}}">Valider</a>
+                
+                    <a role="submit" name="submit" class="btn btn-primary" href="update3/{{comment.id}}">Valider</a>
+                
+
+
+                    <!--<a href="comments/show/{{comment.id}}">Valider</a>-->
                     <a href="delete/{{comment.id}}">supprimer</a>
                     <a href="comments/show/{{comment.id}}">Voir</a>
                     <a href="update/{{comment.id}}">edit</a>

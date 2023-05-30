@@ -34,21 +34,32 @@ class Users extends AbstractController{
     // TODO controller non fonctionnel 
     public function new(){
 
+        $message = "";
 
         if(isset($_POST['submit'])){
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $email = $_POST['email'];
-            $password = $_POST['password'];
-         
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
+
+            $this->loadModel('user');
+            $user = $this->user->create($firstname, $lastname, $email, $password);
+            if($user = $create){
+                $_SESSION['message'] = 'Votre compte à été créer';
+
+            }
+            header("Location: /login/log");    
+
+
         }else{
-            $this->twig->display('users/new.html.twig');
+            $message = "Veuillez Remplir Tous Les Champs";
+
+            $this->twig->display('users/new.html.twig', compact('message'));
         }
-        $this->loadModel('user');
-        $user = $this->user->create($firstname, $lastname, $email, $password);
-        header("Location: /login/connect");
 
     }
+
+   
 
         // TODO PROBLEME AFFICHAGE POST
         public function update($id){

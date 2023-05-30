@@ -4,7 +4,10 @@
 class Login extends AbstractController{
 
     public function log(){
-        if(!isset($_SESSION['id'])){
+
+        $message = "";
+
+        if(!isset($_SESSION['id']) && (!isset($_SESSION['role']))) {
 
         if(isset($_POST['submit'])){
             $email = $_POST['email'];
@@ -12,10 +15,18 @@ class Login extends AbstractController{
             
             $this->loadModel('Logins');
             $login = $this->Logins->connexion($email, $password);
-            header("Location: /");               
+            if($login != false){
+                $_SESSION['message'] = 'Connecté avec succès';
+                header("Location: /");               
+            }else{
+                $message = "Email et/ou Mot De Passe incorrect";
+
+                $this->twig->display('login/connect.html.twig', compact('message'));
+            }
 
             }else{
-                $this->twig->display('login/connect.html.twig');
+                $this->twig->display('login/connect.html.twig', compact('message'));
+
                 }         
             }else{
                 header("Location: /");               

@@ -8,6 +8,7 @@ class Comments extends AbstractController{
      * @return void
      */
     public function index(){
+        
         // On instancie le modèle "Comment"
         $this->loadModel('Comment');
 
@@ -16,7 +17,27 @@ class Comments extends AbstractController{
 
         // On envoie les données à la vue lire
         $this->twig->display('comments/index.html.twig', compact('comments'));
+
+        
+ 
+        
         }
+
+        public function update3($id){
+
+        if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
+            $this->loadModel('Comment');
+
+            $comment = $this->Comment->findById($id);
+                $comment = $this->Comment->updateStatut($id);   
+                header("Location: /comments/index");
+           
+        }else{
+            header("Location: /comments/index");
+
+        }         
+    }   
+
 
     /**
      * Méthode permettant d'afficher un post à partir de son id
@@ -24,7 +45,7 @@ class Comments extends AbstractController{
      * @param int $id
      * @return void
      */
-    public function show( $id){
+    public function show($id){
 
         $this->loadModel('Comment');
         $comment = $this->Comment->findById($id);
@@ -33,7 +54,7 @@ class Comments extends AbstractController{
     }
 
 
-
+/*
     
     public function new(){
 
@@ -42,24 +63,20 @@ class Comments extends AbstractController{
 
         if(isset($_POST['submit'])){
             $content = $_POST['content'];
-           /*
-            $date = $_POST['date'];
-            $statut = $_POST['statut'];
-            $id_user = $_POST['iduser'];
-            $id_post = $_POST['idpost'];
-            */
+            $id_user = $_SESSION['id'];           
+           
         }else{
             $this->twig->display('comments/new.html.twig');
         }
         $this->loadModel('comment');
-        $comment = $this->comment->create($content);
-        return $this->twig->display('comments/new.html.twig');
+        $comment = $this->comment->create($content, $id_user);
+        return $this->twig->display('comments/index.html.twig');
 
     }else{
         header("Location: /login/log");
 
     }
-    }
+    }*/
 
     public function delete($id){
         $this->loadModel('comment');

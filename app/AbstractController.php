@@ -34,6 +34,7 @@ abstract class AbstractController{
         {
             $this->loader = new FilesystemLoader(ROOT. '/views');
             $this->twig = new Environment($this->loader);
+            $this->twig->addGlobal('session', $_SESSION);
             $this->twig->addExtension(new StringExtension());
             $this->twig->addExtension(new CssInlinerExtension());
         }
