@@ -236,7 +236,7 @@ sup {
 }
 
 a {
-  color: #212529;
+  color: #086acb;
   text-decoration: none;
 }
 a:hover {
@@ -11018,7 +11018,9 @@ blockquote {
 }
 
 .btn {
-  letter-spacing: 0.0625em;
+  border-radius: 40px;
+  height: auto;
+
 }
 
 .form-floating input,
@@ -11245,4 +11247,16 @@ header.masthead .site-heading .h1 {
   .post-preview > a > .post-title {
     font-size: 2.25rem;
   }
+}
+
+.error{
+  color: #D8000C;
+  background-color: #FFBABA;
+}
+div.close {
+  position: absolute;
+  top: 30%;
+  right: 10px;
+  color: #888;
+  cursor: pointer;
 }

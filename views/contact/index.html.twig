@@ -1,0 +1,41 @@
+{% extends 'default.html.twig' %}
+
+
+{% block body %}
+
+<br><br>
+    <h1>Contact</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>PhoneNumber</th>
+                <th>Message</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in contacts %}
+            <tr class="table-active">
+                <td>{{ contact.id }}</td>
+                <td>{{ contact.name }}</td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phoneNumber }}</td>
+                <td>{{ contact.message | u.truncate(25, '...', false) }}</td>
+                <td>
+                    <a href="show/{{contact.id}}">show</a>
+                    <a href="delete/{{contact.id}}">delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
