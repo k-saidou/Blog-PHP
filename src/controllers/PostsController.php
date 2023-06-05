@@ -21,13 +21,21 @@ class Posts extends AbstractController{
 
         // TODO FONCTIONNEL
     public function read(){
-        $this->loadModel('Post');
-        $posts = $this->Post->getAll();
+
         if(isset($_SESSION['message'])){
             $message = $_SESSION['message'];
         }else{
             $message = "";
         }
+        
+        $this->loadModel('Post');
+        if($_SESSION['role'] == 'ADMIN'){
+            $posts = $this->Post->getAll();
+        }else{
+            $id_user = $_SESSION['id'];
+            $posts[] = $this->Post->AllByUser($id_user);
+        }
+
         $this->twig->display('posts/read.html.twig', compact('posts','message'));
     }
 

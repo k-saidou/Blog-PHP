@@ -8,35 +8,34 @@ class Comments extends AbstractController{
      * @return void
      */
     public function index(){
+
+        if(isset($_SESSION['message'])){
+            $message = $_SESSION['message'];
+        }else{
+            $message = "";
+        }
+        if(isset($_SESSION['info'])){
+            $info = $_SESSION['info'];
+        }else{
+            $info = "";
+        }
         
         // On instancie le modèle "Comment"
         $this->loadModel('Comment');
 
-        // On stocke la liste des Comment dans $comments
-        $comments = $this->Comment->getAll();
-
-        // On envoie les données à la vue lire
-        $this->twig->display('comments/index.html.twig', compact('comments'));
-
-        
- 
-        
+        if($_SESSION['role'] == 'ADMIN'){
+            $comments = $this->Comment->getAll();
+        }else{
+            $id_user = $_SESSION['id'];
+            $comments[] = $this->Comment->AllByUser($id_user);
         }
 
-        public function update3($id){
+        // On stocke la liste des Comment dans $comments
 
-        if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
-            $this->loadModel('Comment');
-
-            $comment = $this->Comment->findById($id);
-                $comment = $this->Comment->updateStatut($id);   
-                header("Location: /comments/index");
-           
-        }else{
-            header("Location: /comments/index");
-
-        }         
-    }   
+        // On envoie les données à la vue lire
+        $this->twig->display('comments/index.html.twig', compact('comments','message','info'));
+        
+        } 
 
 
     /**
@@ -53,57 +52,36 @@ class Comments extends AbstractController{
 
     }
 
-
-/*
-    
-    public function new(){
-
-        if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
-
-
-        if(isset($_POST['submit'])){
-            $content = $_POST['content'];
-            $id_user = $_SESSION['id'];           
-           
-        }else{
-            $this->twig->display('comments/new.html.twig');
-        }
-        $this->loadModel('comment');
-        $comment = $this->comment->create($content, $id_user);
-        return $this->twig->display('comments/index.html.twig');
-
-    }else{
-        header("Location: /login/log");
-
-    }
-    }*/
-
     public function delete($id){
+        $message = "";
         $this->loadModel('comment');
         $comment = $this->comment->deleteCom($id);
+        if($comment !== false){
+            $_SESSION['message'] = 'Votre commentaire a bien été supprimer';
+        }
         header("Location: /comments/index");
     }
 
 
         public function update($id){
+
+            $info = "";
+
             if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
 
             $this->loadModel('Comment');
             $comment = $this->Comment->findById($id);
-            var_dump($id);
-            var_dump($comment);
 
-
-
-    
             if(isset($_POST['submit'])){
                 $content = $_POST['content'];
-                $comment = $this->Comment->update($content,$id);   
+                $comment = $this->Comment->update($content,$id); 
+                if($post !== false){
+                    $_SESSION['info'] = 'Votre Commentaire a bien été Modifié, un admin le validera prochainement';
+                }          
                 header("Location: /comments/index");
-
-     
             }else{
-                $this->twig->display('comments/update.html.twig', compact('comment'));   
+                $error = "Une erreur est survenue";
+                $this->twig->display('comments/update.html.twig', compact('comment','info','error'));   
     
             }             
         }else{
@@ -112,5 +90,25 @@ class Comments extends AbstractController{
         } 
     
         }   
+
+        public function updateCom($id){
+
+            if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
+
+                $this->loadModel('Comment');
+                $comment = $this->Comment->findById($id);
+
+                if(isset($_POST['submit'])){
+                    $content = $_POST['content'];
+                    $comment = $this->Comment->updateStatut($id);
+
+                }
+
+                    header("Location: /comments/index");
+               
+            }else{
+                header("Location: /comments/index");
     
+            }         
+        }
 }

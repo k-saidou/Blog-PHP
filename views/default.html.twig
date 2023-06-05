@@ -31,8 +31,8 @@
             {% if session.role == 'ADMIN' %}
 
                 <div class="dropdown">
-                    <button class="btn btn-outline-secondary text-dark  dropdown-toggle" style="text-align : center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown button
+                    <button class="btn btn-outline-info btn-sm dropdown-toggle" style="text-align : center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{session.firstname}}
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/users/index">Index Utilisateurs</a></li>
@@ -40,18 +40,17 @@
                         <li><a class="dropdown-item" href="/comments/index">Index commentaires</a></li>
                     </ul>
                 </div>
-                
 
                 {% elseif session.role == 'USER' %}
 
                 <div class="dropdown">
-                    <button class="btn btn-outline-secondary text-dark  dropdown-toggle" style="text-align : center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                         button
+                    <button class="btn btn-outline-info btn-sm ms-auto dropdown-toggle" style="text-align : center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{session.firstname}}
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/users/index">Index Utilisateurs</a></li>
-                        <li><a class="dropdown-item" href="/posts/read">Index posts</a></li>
-                        <li><a class="dropdown-item" href="/comments/index">Index commentaires</a></li>
+                        <li><a class="dropdown-item" href="/users/index">profil</a></li>
+                        <li><a class="dropdown-item" href="/posts/read">Mes posts</a></li>
+                        <li><a class="dropdown-item" href="/comments/index">Mes commentaires</a></li>
                     </ul>
                 </div>
                 {% endif %}

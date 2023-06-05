@@ -24,11 +24,14 @@ class Post extends AbstractModel{
           $query->execute();
           return $query->fetch(PDO::FETCH_ASSOC);    
       }  
-
+      public function AllByUser($id_user){
+        $sql = "SELECT * FROM `post` WHERE id_user = $id_user";
+        $query = $this->_connexion->prepare($sql);
+          $query->execute();
+          return $query->fetch(PDO::FETCH_ASSOC);    
+      }
     
       
-
-        // TODO test creation Post à réaliser
         public function create($titre, $chapo, $contenu, $id_user){
 
             $sql = "INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
@@ -40,8 +43,6 @@ class Post extends AbstractModel{
                 $query->bindParam(':titre', $titre, PDO::PARAM_STR);
                 $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
                 $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
-            /*  $query->bindParam(':creationTime', $creationTime, PDO::PARAM_STR);
-                $query->bindParam(':updateTime', $updateTime, PDO::PARAM_STR);*/
                 $query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                 $query->execute();
                 $contar = $query->rowCount();

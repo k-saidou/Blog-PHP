@@ -49,8 +49,11 @@
         {% endfor %}
         </tbody>
     </table>
+    {% if session.role == 'ADMIN' %}
     <div class="d-grid gap-2 col-6 mx-auto">
         <a class="btn btn-outline-success btn-sm" href="/users/new">Créer un nouveau compte!</a>
     </div>  
-    <br>                                      
+    {% endif %}
+    <br>   
+                                   
 {% endblock %}

@@ -23,8 +23,8 @@ class Home extends AbstractController{
             $contact = $this->contact->create($name, $email, $phoneNumber, $message);
             header("Location: /");
     
+            }
+
         }
 
     }
-
-}

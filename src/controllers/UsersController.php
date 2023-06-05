@@ -8,15 +8,22 @@ class Users extends AbstractController{
      * @return void
      */
     public function index(){
-        // On instancie le modèle "User"
-        $this->loadModel('User');
 
-        // On stocke la liste des users dans $Users
-        $users = $this->User->getAll();
         if(isset($_SESSION['message'])){
             $message = $_SESSION['message'];
         }else{
             $message = "";
+        }
+
+        // On instancie le modèle "User"
+        $this->loadModel('User');
+        
+        if($_SESSION['role'] == 'ADMIN'){
+        // On stocke la liste des users dans $Users
+        $users = $this->User->getAll();
+        }else{
+            $id = $_SESSION['id'];
+            $users[] = $this->User->findById($id);
         }
 
         // On envoie les données à la vue lire

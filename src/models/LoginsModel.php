@@ -25,7 +25,8 @@ class Logins extends AbstractModel{
             if(count($connect)>0){  
                  
                 if(password_verify($password, $connect[0]['password'])){
-                $_SESSION['id'] = $connect[0]['id'];         
+                $_SESSION['id'] = $connect[0]['id']; 
+                $_SESSION['firstname'] = $connect[0]['firstname'];        
                 $_SESSION['role'] = $connect[0]['role'];         
                 return $connect[0]; 
                 } else{

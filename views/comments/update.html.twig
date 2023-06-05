@@ -14,8 +14,6 @@
         </div>
     </header>
 
-    <section style="background-color: #ad655f;">
-          <hr class="my-0" />
 <div class="container">
 <h1>MODIFIER UN COMMENTAIRE</h1>
 
@@ -29,13 +27,15 @@
         {{comment.content}} 
         </textarea>
     </div>
+    <hr>
     <br>
-    <br><br>
-    <button name="submit" type="submit" class="btn btn-primary">Enregistrer</button>
+    <div class="d-grid gap-2 col-6 mx-auto">
+    <button type="submit" name="submit" class="btn btn-outline-success btn-sm">Enregistrer la modification</button>
+    </div>   
+    <br>                                     
 </form>
 </div>
 
-</section>
 
 {% endblock %}
 
