@@ -29,10 +29,10 @@ class Post extends AbstractModel{
       
 
         // TODO test creation Post à réaliser
-        public function create($titre, $chapo, $contenu){
+        public function create($titre, $chapo, $contenu, $id_user){
 
             $sql = "INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
-            VALUES (:titre, :chapo, :contenu, NOW(), NULL, NULL)";
+            VALUES (:titre, :chapo, :contenu, NOW(), NULL, :id_user)";
     
             try{
     
@@ -41,8 +41,8 @@ class Post extends AbstractModel{
                 $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
                 $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
             /*  $query->bindParam(':creationTime', $creationTime, PDO::PARAM_STR);
-                $query->bindParam(':updateTime', $updateTime, PDO::PARAM_STR);
-                $query->bindParam(':id_user', $id_user, PDO::PARAM_INT);*/
+                $query->bindParam(':updateTime', $updateTime, PDO::PARAM_STR);*/
+                $query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
                 $query->execute();
                 $contar = $query->rowCount();
     
@@ -64,7 +64,7 @@ class Post extends AbstractModel{
 
             public function update($titre, $chapo, $contenu, $id){
 
-                $sql = "UPDATE `post` SET `titre` = :titre, `chapo` = :chapo, `contenu` = :contenu WHERE `id` = :id";
+                $sql = "UPDATE `post` SET `titre` = :titre, `chapo` = :chapo, `contenu` = :contenu, `updateTime` = NOW() WHERE `id` = :id";
                 $query = $this->_connexion->prepare($sql);
                 $query->bindParam(':titre', $titre, PDO::PARAM_STR);
                 $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);

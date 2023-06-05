@@ -23,7 +23,12 @@ class Posts extends AbstractController{
     public function read(){
         $this->loadModel('Post');
         $posts = $this->Post->getAll();
-        $this->twig->display('posts/read.html.twig', compact('posts'));
+        if(isset($_SESSION['message'])){
+            $message = $_SESSION['message'];
+        }else{
+            $message = "";
+        }
+        $this->twig->display('posts/read.html.twig', compact('posts','message'));
     }
 
     /**
@@ -57,6 +62,7 @@ class Posts extends AbstractController{
 
     // TODO PROBLEME AFFICHAGE POST
     public function update($id){
+        $message = "";
         if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
 
         
@@ -67,12 +73,15 @@ class Posts extends AbstractController{
             $titre = $_POST['titre'];
             $chapo = $_POST['chapo'];
             $contenu = $_POST['content'];
-        $post = $this->Post->update($titre,$chapo,$contenu,$id);   
+        $post = $this->Post->update($titre,$chapo,$contenu,$id);  
+        if($post !== false){
+            $_SESSION['message'] = 'Votre Post a bien été Modifié';
+        }
         header("Location: /posts/read");
  
         }else{
-            $post = $this->Post->findById($id);
-            $this->twig->display('posts/update.html.twig', compact('post'));   
+            $error = "Une erreur est survenue";
+            $this->twig->display('posts/update.html.twig', compact('post','message','error'));   
 
         }              
     }else{
@@ -85,34 +94,41 @@ class Posts extends AbstractController{
     
     // TODO fonctionnel, MANQUE DATE ET ID
     public function new(){
+        $message = "";
         
         if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
 
-        if(isset($_POST['submit'])){
+            if(isset($_POST['submit'])){
             $titre = $_POST['titre'];
             $chapo = $_POST['chapo'];
             $contenu = $_POST['contenu'];
-           /* $creationTime = $_POST['creationTime'];
-            $updateTime = $_POST['updateTime'];
-            $id_user = $_POST['iduser'];*/
-        }else{
-            $this->twig->display('posts/new.html.twig');
+            $id_user = $_SESSION['id'];
+            
+            $this->loadModel('Post');
+            $post = $this->Post->create($titre, $chapo, $contenu, $id_user);
+                if($post != false){
+                $_SESSION['message'] = 'Votre Post a bien été créer';
+                header("Location: /posts/read");
+                }else{
+                $error = "Veuillez remplir tous les champs.";
+                $this->twig->display('posts/new.html.twig', compact('message','error'));
+                    }
+                }else{
+                    $this->twig->display('posts/new.html.twig');
+                }
+            }else{
+            header("Location: /login/log");
+                }
         }
-        $this->loadModel('Post');
-        $post = $this->Post->create($titre, $chapo, $contenu);
-        header("Location: /posts/read");
-    }else{
-        header("Location: /login/log");
-
-    }
-
-    }
   
     
     // FONCTIONNEL 
     public function delete($id){
         $this->loadModel('Post');
         $post = $this->Post->deletePost($id);
+        if($post !== false){
+            $_SESSION['message'] = 'Votre Post a bien été supprimer';
+        }
         header("Location: /posts/read");
     }
     
