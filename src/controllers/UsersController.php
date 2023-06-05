@@ -13,9 +13,14 @@ class Users extends AbstractController{
 
         // On stocke la liste des users dans $Users
         $users = $this->User->getAll();
+        if(isset($_SESSION['message'])){
+            $message = $_SESSION['message'];
+        }else{
+            $message = "";
+        }
 
         // On envoie les données à la vue lire
-        $this->twig->display('users/index.html.twig', compact('users'));
+        $this->twig->display('users/index.html.twig', compact('users','message'));
         }
 
         public function show($id){
@@ -44,25 +49,28 @@ class Users extends AbstractController{
 
             $this->loadModel('user');
             $user = $this->user->create($firstname, $lastname, $email, $password);
-            if($user = $create){
+            if($user !== false){
                 $_SESSION['message'] = 'Votre compte à été créer';
-
             }
             header("Location: /login/log");    
-
-
         }else{
-            $message = "Veuillez Remplir Tous Les Champs";
+            $error = "Veuillez Remplir Tous Les Champs";
 
-            $this->twig->display('users/new.html.twig', compact('message'));
+            $this->twig->display('users/new.html.twig', compact('message','error'));
         }
-
     }
 
-   
 
         // TODO PROBLEME AFFICHAGE POST
         public function update($id){
+
+            $message = "";
+
+            if(isset($_SESSION['message'])){
+                $message = $_SESSION['message'];
+            }else{
+                $message = "";
+            }
             $this->loadModel('User');
             $user = $this->User->findById($id);
     
@@ -72,11 +80,15 @@ class Users extends AbstractController{
                 $email = $_POST['email'];
                 $password = $_POST['password'];
             $user = $this->User->update($firstname,$lastname,$email,$password,$id);   
+            if($user !== false){
+                $_SESSION['message'] = 'Modifier avec succès';
+            }
             header("Location: /users/index");
      
             }else{
+                $error = "Une erreur est survenue. Veuillez remplir tous les champs";
                 $user = $this->User->findById($id);
-                $this->twig->display('users/update.html.twig', compact('user'));   
+                $this->twig->display('users/update.html.twig', compact('user','message','error'));   
     
             }              
     
@@ -84,9 +96,14 @@ class Users extends AbstractController{
 
 
     public function delete($id){
+
+        $message = "";
         $this->loadModel('user');
         $user = $this->user->deleteUser($id);
-        header("Location: /users/read");
+        if($user !== false){
+            $_SESSION['message'] = 'Supprimer avec succès';
+        }
+        header("Location: /users/index");
     }
     
 }
