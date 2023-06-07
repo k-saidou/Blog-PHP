@@ -98,8 +98,7 @@ class Comments extends AbstractController{
                 $this->loadModel('Comment');
                 $comment = $this->Comment->findById($id);
 
-                if(isset($_POST['submit'])){
-                    $content = $_POST['content'];
+                if($comment != false){
                     $comment = $this->Comment->updateStatut($id);
 
                 }

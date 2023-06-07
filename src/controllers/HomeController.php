@@ -8,6 +8,7 @@ class Home extends AbstractController{
         $posts = $this->Post->getLast();
         if(isset($_SESSION['message'])){
             $message = $_SESSION['message'];
+            unset($_SESSION['message']);
         }else{
             $message = "";
         }

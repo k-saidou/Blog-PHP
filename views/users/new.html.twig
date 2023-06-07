@@ -15,29 +15,33 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
+                                <div id="flash" class="error">
+                                    <div class="close" onclick="this.parentElement.remove()">X</div>
+                                    {{error}}
+                                </div>  
                             <form action="" method ="POST">
 
                                 <div class="form-group">
                                     <label for="firstname" >Firstname </label>
-                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder=
+                                    <input required type="text" class="form-control" id="firstname" name="firstname" placeholder=
                                     "Firstname">
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="lastname" >Lastname</label>
-                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder=
+                                    <input required type="text" class="form-control" id="lastname" name="lastname" placeholder=
                                     "Lastname">
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="email" >Email</label>
-                                    <input type="text" class="form-control" id="email" name="email" placeholder=
+                                    <input required type="text" class="form-control" id="email" name="email" placeholder=
                                     "Email">
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="password" >Password</label>
-                                    <input type="text" class="form-control" id="password" name="password" placeholder=
+                                    <input required type="text" class="form-control" id="password" name="password" placeholder=
                                     "password">
                                 </div>
                                 <br>

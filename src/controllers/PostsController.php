@@ -33,7 +33,7 @@ class Posts extends AbstractController{
             $posts = $this->Post->getAll();
         }else{
             $id_user = $_SESSION['id'];
-            $posts[] = $this->Post->AllByUser($id_user);
+            $posts = $this->Post->AllByUser($id_user);
         }
 
         $this->twig->display('posts/read.html.twig', compact('posts','message'));

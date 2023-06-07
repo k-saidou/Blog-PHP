@@ -11,6 +11,7 @@ class Users extends AbstractController{
 
         if(isset($_SESSION['message'])){
             $message = $_SESSION['message'];
+            unset($_SESSION['message']);
         }else{
             $message = "";
         }
@@ -48,7 +49,9 @@ class Users extends AbstractController{
 
         $message = "";
 
-        if(isset($_POST['submit'])){
+        if(isset($_POST['submit'], $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'])){
+            if(!empty($_POST['fistname'])&& !empty($_POST['lastname']) && !empty($_POST['email']) && !empty($_POST['password'])){
+
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $email = $_POST['email'];
@@ -64,6 +67,11 @@ class Users extends AbstractController{
             $error = "Veuillez Remplir Tous Les Champs";
 
             $this->twig->display('users/new.html.twig', compact('message','error'));
+
+        }
+        }else{
+
+            $this->twig->display('users/new.html.twig', compact('message'));
         }
     }
 

@@ -9,11 +9,13 @@
                     <div class="error">
                         <div class="close" onclick="this.parentElement.remove()">X</div>
                         {{error}}
-                    </div>                                        
+                    </div> 
+                    {% if message != "" %}                                       
                     <div class="success">
                         <div class="close" onclick="this.parentElement.remove()">X</div>
                         {{message}}
                     </div>
+                    {% endif %}
                 <div class="site-heading">
                     <h1>developpeur Web</h1>
                     <span class="subheading">A Blog Theme by Start Bootstrap</span>

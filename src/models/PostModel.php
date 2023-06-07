@@ -28,7 +28,7 @@ class Post extends AbstractModel{
         $sql = "SELECT * FROM `post` WHERE id_user = $id_user";
         $query = $this->_connexion->prepare($sql);
           $query->execute();
-          return $query->fetch(PDO::FETCH_ASSOC);    
+          return $query->fetchAll(PDO::FETCH_ASSOC);    
       }
     
       
