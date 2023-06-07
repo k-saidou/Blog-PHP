@@ -1,39 +1,36 @@
 {% extends 'default.html.twig' %}
 
-
 {% block body %}
-
 <br><br>
 <br>
-    <h1>Informations profil</h1>
+<h1>Informations profil</h1>
 <br>
-    <table class="table">    
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-                <th>Password</th>
-                <th>Role</th>
+<table class="table">    
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Role</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.firstname }}</td>
-                <td>{{ user.lastname }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.password | u.truncate(5, '...', true) }}</td>
-                <td>{{ user.role }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <a class="btn btn-outline-secondary btn-sm" href="/users/index">Retour</a>
-    </div>                                        
-    <br>
-
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.password | u.truncate(5, '...', true) }}</td>
+            <td>{{ user.role }}</td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a class="btn btn-outline-secondary btn-sm" href="/users/index">Retour</a>
+</div>                                        
+<br>
 {% endblock %}

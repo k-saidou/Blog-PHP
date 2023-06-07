@@ -7,15 +7,19 @@
 <div class="container">
 <br>
 <h1>CREER UN POST</h1>
-<br>
-    <div class="error">
-        <div class="close" onclick="this.parentElement.remove()">X</div>
-        {{error}}
-    </div>                                        
-    <div class="success">
-        <div class="close" onclick="this.parentElement.remove()">X</div>
-        {{message}}
-    </div>
+<br>    
+{% if error != "" %}                                       
+<div class="error">
+    <div class="close" onclick="this.parentElement.remove()">X</div>
+    {{error}}
+</div> 
+{% endif %}   
+{% if message != "" %}                                       
+<div class="success">
+    <div class="close" onclick="this.parentElement.remove()">X</div>
+    {{message}}
+</div>
+{% endif %}
 <form action="" method ="POST">
     <div class="form-group">
         <label for="titre" >Titre du post</label>
@@ -43,5 +47,4 @@
     <br>                                     
 </form>
 </div>
-
 {% endblock %}

@@ -2,38 +2,39 @@
 
 {% block body %}
        
-    <!-- Page Header-->
-    <header class="masthead" style="background-image: url('http://localhost/blog-php/public/img/post-bg.jpg')">
-        <div class="container position-relative px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="post-heading">
-                    </div>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('http://localhost/blog-php/public/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
                 </div>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
 <div class="container">
-<h1>MODIFIER UN COMMENTAIRE</h1>
-
-<form action="" method ="POST">
-    <div class="form-group">
-    <br>
-    <div class="form-group">
-        <label for="content" >Contenu Du Commentaire</label>
-    <br><br>
-        <textarea name="content" id="content"  rows="8" class="form-control">
-        {{comment.content}} 
-        </textarea>
-    </div>
-    <hr>
-    <br>
-    <div class="d-grid gap-2 col-6 mx-auto">
-    <button type="submit" name="submit" class="btn btn-outline-success btn-sm">Enregistrer la modification</button>
-    </div>   
-    <br>                                     
-</form>
+    <h1>MODIFIER UN COMMENTAIRE</h1>
+    <form action="" method ="POST">
+        <div class="form-group">
+            <br>
+            <div class="form-group">
+                <label for="content" >Contenu Du Commentaire</label>
+            <br><br>
+                <textarea required name="content" id="content"  rows="8" class="form-control">
+                {{comment.content}} 
+                </textarea>
+            </div>
+            <hr>
+            <br>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button type="submit" name="submit" class="btn btn-outline-success btn-sm">Enregistrer la modification</button>
+                <a class="btn btn-outline-secondary btn-sm" href="/comments/index">Retour</a>
+            </div>   
+            <br>  
+        </div>   
+    </form>
 </div>
 
 

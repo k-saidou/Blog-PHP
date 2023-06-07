@@ -27,3 +27,6 @@ window.addEventListener('DOMContentLoaded', () => {
         scrollPos = currentTop;
     });
 })
+setTimeout(function() {
+    document.getElementById('success').innerHTML = "";
+  },8000);
