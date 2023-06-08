@@ -1,5 +1,8 @@
 <?php 
+namespace App;
 
+use PDO;
+use PDOException;
 
 abstract class AbstractModel{
 
@@ -35,17 +38,7 @@ abstract class AbstractModel{
     }   
 
     
-    /**
-     * Méthode permettant d'obtenir un enregistrement de la table choisie en fonction d'un id
-     *
-     * @return void
-     */
-    public function getOne(){
-        $sql = "SELECT * FROM ".$this->table." WHERE id=".$this->id;
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetch();    
-    }
+
 
     /**
      * Méthode permettant d'obtenir tous les enregistrements de la table choisie
@@ -59,8 +52,21 @@ abstract class AbstractModel{
         return $query->fetchAll();    
     }
 
-            /**
-     * Méthode permettant d'obtenir tous les enregistrements de la table choisie
+    /**
+     * Retourne un post en fonction de son id
+     *
+     * @param int $id
+     * @return void
+     */
+    public function findById(string $id){
+        $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+        $query = $this->_connexion->prepare($sql);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);    
+    }
+
+    /**
+     * Méthode permettant d'obtenir tous les 4 derniers enregistrements de la table choisie
      *
      * @return void
      */
@@ -70,23 +76,5 @@ abstract class AbstractModel{
         $query->execute();
         return $query->fetchAll();    
     }
-
-        /**
-     * Retourne un post en fonction de son id
-     *
-     * @param int $id
-     * @return void
-     */
-    public function findById2( $id_post, $statut){
-        //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
-        //  $sql = "SELECT * FROM `comment` WHERE comment.id_post = :id";
-          $sql = "SELECT * FROM `comment` WHERE `id_post`= :id_post AND `statut`='Accept' ORDER BY `date` ASC";
-
-          $query = $this->_connexion->prepare($sql);
-          $query->bindParam(':id_post', $id_post, PDO::PARAM_INT);
-          $query->bindParam(':statut', $statut, PDO::PARAM_STR);
-          $query->execute();
-          return $query->fetch(PDO::FETCH_ASSOC);    
-      }
 
 }
