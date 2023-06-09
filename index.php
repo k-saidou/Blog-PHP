@@ -1,14 +1,13 @@
 <?php
 
-session_start();
-
 define('ROOT', str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 
-require 'vendor/autoload.php';
+require_once(ROOT.'vendor/autoload.php');
 
-require_once(ROOT. 'app/AbstractModel.php');
-require_once(ROOT. 'app/AbstractController.php');
-
+use src\controllers\Home;
+use Src\controllers\HomeController;
+use Src\controllers\Posts;
+use Src\controllers\PostsController;
 
 // On sépare les paramètres et on les met dans le tableau $params
 $params = explode('/', $_GET['p']);
@@ -21,11 +20,8 @@ if($params[0] != ""){
     // On sauvegarde le 2ème paramètre dans $action si il existe, sinon index
     $action = isset($params[1]) ? $params[1] : 'index';
 
-    // On appelle le contrôleur
-    require_once(ROOT.'src/controllers/'.$controller.'Controller.php');
-
     // On instancie le contrôleur
-    $controller = new $controller();
+    $controller = new PostsController();
 
     if(method_exists($controller, $action)){
        // On supprime les 2 premiers paramètres
@@ -42,10 +38,9 @@ if($params[0] != ""){
 }else{
     // Ici aucun paramètre n'est défini
     // On appelle le contrôleur par défaut
-    require_once(ROOT.'src/controllers/HomeController.php');
 
     // On instancie le contrôleur
-    $controller = new Home();
+    $controller = new HomeController();
 
     // On appelle la méthode index
     $controller->index();

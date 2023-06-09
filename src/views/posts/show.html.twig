@@ -9,11 +9,11 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="post-heading">
                         <h1>{{ post.titre }}</h1>
-                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+                        <h2 class="subheading">{{post.chapo}}</h2>
                         <span class="meta">
                             Posted by
                             <a href="#!">Start Bootstrap</a>
-                            on August 24, 2022
+                            {{post.creationTime}}
                         </span>
                     </div>
                 </div>
@@ -36,54 +36,45 @@
         </div>
     </article>
 
-    <section style="background-color: #F4F6F6">
+    <section style="background-color: #F8F9F9">
   <div class="container my-5 py-5">
     <div class="row d-flex justify-content-center">
       <div class="col-md-12 col-lg-10">
         <div class="card text-dark">
           <div class="card-body p-4">
-            <h4 class="mb-0">Recent comments</h4>
+            <h4 class="mb-0">Dernier commentaires</h4>
             <p class="fw-light mb-4 pb-2">Latest Comments section by users</p>
-            <div class="d-flex flex-start">
-              <img class="rounded-circle shadow-1-strong me-3"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(23).webp" alt="avatar" width="60"
-                height="60" />
-              <div>
-                <h6 class="fw-bold mb-1">Maggie Marsh</h6>
-                <div class="d-flex align-items-center mb-3">
-                  <p class="mb-0">
-                    {{post.date}}
-                    <span class="badge bg-primary">Pending</span>
-                  </p>
-                  <p class="mb-0">
-                    {{post.id}}
-                    <span class="badge bg-primary">Pending</span>
-                  </p>
-                  <a href="#!" class="link-muted"><i class="fas fa-pencil-alt ms-2"></i></a>
-                  <a href="#!" class="link-muted"><i class="fas fa-redo-alt ms-2"></i></a>
-                  <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
-                </div>
-              </div>
-            </div>
           </div>
           <hr class="my-0" />
 
 {% for comment in comments %}
 
-<div class="container" style="background-color: #F4F6F6">
+<div class="container" style="background-color:  ">
   <div class="row">
-    <div class="">
-      <div class="card  mb-3 bg-secondary " >
+      <div class="card  mb-3 " style="background-color: #F8F9F9" >
         <small>Ce commentaire a été posté le {{comment.date}} par </small>
         <div class="card-body">
           <p class="card-text">{{comment.content}}</p>
-        </div>
       </div>
   </div>
 
 
 {% endfor %}
 </div>
+<form action="" method ="POST">
+    <div class="form-group">
+    <br>
+    <div class="form-group">
+        <label for="content" >Ecrire un Commentaire</label>
+        <textarea name="content" id="content"  rows="8" class="form-control">
+        </textarea>
+    </div>
+    <br>
+    <br><br>
+    <button type="submit" name="submit" class="btn btn-outline-primary text-dark">Enregistrer</button>
+
+</form>
+
 </section>
 {% endblock %}
 
