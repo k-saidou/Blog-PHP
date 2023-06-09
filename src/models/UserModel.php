@@ -13,23 +13,24 @@ class User extends AbstractModel{
     }
         
     /**
-     * Retourne un user en fonction de son id
+     * Retourne un post en fonction de son id
      *
      * @param int $id
      * @return void
      */
-    public function findById(string $id){
-        $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
-        $query = $this->_connexion->prepare($sql);
-        $query->execute();
-        return $query->fetch(PDO::FETCH_ASSOC);    
-    }
+    public function findById($id){
+          $sql = "SELECT * FROM `users` WHERE id = $id ";
+          $query = $this->_connexion->prepare($sql);
+          $query->execute();
+          return $query->fetch(PDO::FETCH_ASSOC);    
+      }  
+
 
         // TODO test creation user à réaliser
         public function create($firstname, $lastname, $email,$password){
 
-            $sql = "INSERT INTO `users` ( `firstname`, `lastname`, `email`, `password`, `role`)
-            VALUES (:firstname, :lastname, :email, :password, NULL)";
+            $sql = "INSERT INTO `users` ( `firstname`, `lastname`, `email`, `password`)
+            VALUES (:firstname, :lastname, :email, :password)";
     
             try{
     
@@ -53,8 +54,21 @@ class User extends AbstractModel{
                 }
             }
 
+            public function update($firstname, $lastname, $email, $password, $id){
+
+                $sql = "UPDATE `users` SET `firstname` = :firstname, `lastname` = :lastname, `email` = :email, `password` = :password WHERE `id` = :id";
+                $query = $this->_connexion->prepare($sql);
+                $query->bindParam(':firstname', $firstname, PDO::PARAM_STR);
+                $query->bindParam(':lastname', $lastname, PDO::PARAM_STR);
+                $query->bindParam(':email', $email, PDO::PARAM_STR);
+                $query->bindParam(':password', $password, PDO::PARAM_STR);
+                $query->bindParam(':id', $id, PDO::PARAM_INT);
+                $query->execute();
+        
+            }
+
             public function deleteUser($id) {
-                $req = $this->_connexion->prepare('DELETE FROM user WHERE id = ?');
+                $req = $this->_connexion->prepare('DELETE FROM users WHERE id = ?');
                 $req->execute(array($id));
             }
 

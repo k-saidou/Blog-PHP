@@ -5,29 +5,39 @@ class Login extends AbstractController{
 
     public function log(){
 
+        $message = "";
 
+        if(!isset($_SESSION['id']) && (!isset($_SESSION['role']))) {
 
         if(isset($_POST['submit'])){
-            $email = $_POST['Email'];
-            $password = $_POST['Password'];
-            var_dump($_POST);
-
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            
             $this->loadModel('Logins');
-            $user = $this->Logins->connexion($email, $password);
-            if(is_array($user)){
-                $_SESSION["userId"]=$user["id"];
+            $login = $this->Logins->connexion($email, $password);
+            if($login != false){
+                $_SESSION['message'] = 'Connecté avec succès';
                 header("Location: /");               
-    
             }else{
-                $this->twig->display('login/connect.html.twig');
+                $message = "Email et/ou Mot De Passe incorrect";
 
+                $this->twig->display('login/connect.html.twig', compact('message'));
             }
 
-        }
-        else{
-            $this->twig->display('login/connect.html.twig');
+            }else{
+                $this->twig->display('login/connect.html.twig', compact('message'));
 
-        }
-     }
- 
+                }         
+            }else{
+                header("Location: /");               
+
+            } 
+    }
+
+    public function logout(){
+        session_destroy();  
+        header("Location: /");
+
+    }
+
 }

@@ -3,7 +3,7 @@
 
 {% block body %}
 
-<br><br>
+
     <div class="container">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -14,32 +14,32 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Modifier votre compte</h1>
                             </div>
                             <form action="" method ="POST">
 
                                 <div class="form-group">
                                     <label for="firstname" >Firstname </label>
-                                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder=
-                                    "Firstname">
+                                    <input type="text" class="form-control" id="firstname" name="firstname"  value=
+                                    {{user.firstname}} >
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="lastname" >Lastname</label>
-                                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder=
-                                    "Lastname">
-                                </div>
+                                    <input type="text" class="form-control" id="lastname" name="lastname" value=
+                                    {{user.lastname}} >
+                                </div> 
                                 <br>
                                 <div class="form-group">
                                     <label for="email" >Email</label>
-                                    <input type="text" class="form-control" id="email" name="email" placeholder=
-                                    "Email">
+                                    <input type="text" class="form-control" id="email" name="email" value=
+                                    {{user.email}} >
                                 </div>
                                 <br>
                                 <div class="form-group">
                                     <label for="password" >Password</label>
-                                    <input type="text" class="form-control" id="password" name="password" placeholder=
-                                    "password">
+                                    <input type="text" class="form-control" id="password" name="password" value=
+                                    {{user.password}} >
                                 </div>
                                 <br>
                                 <br><br>

@@ -1,6 +1,12 @@
 {% extends "default.html.twig" %}
 
 {% block body %}
+
+<div>
+    {{message}}
+</div>
+
+
 <!-- Page Header-->
 <header class="masthead" style="background-image: url('http://localhost/blog-php/public/img/home-bg.jpg')">
     <div class="container position-relative px-4 px-lg-5">
@@ -11,7 +17,7 @@
                     <span class="subheading">A Blog Theme by Start Bootstrap</span>
                 </div>
                 <br><br>                
-                <div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="https://drive.google.com/file/d/1UWFFYZ8_V7Vjv05tmf3UiYTwqLoo9WiP/view?usp=sharing" target=_blank >Télécharger mon CV</a></div>
+                <div class="d-flex justify-content-center mb-4"><a class="btn btn-outline-secondary text-dark" href="https://drive.google.com/file/d/1UWFFYZ8_V7Vjv05tmf3UiYTwqLoo9WiP/view?usp=sharing" target=_blank >Télécharger mon CV</a></div>
 
             </div>
         </div>
@@ -43,5 +49,52 @@
 </div>
 
 {% endfor %}
-<div class="d-flex justify-content-center mb-4"><a class="btn btn-primary text-uppercase" href="posts/index/">Voir tous les posts →</a></div>
+<div class="d-flex justify-content-center mb-4"><a class="btn btn-outline-info text-uppercase" href="posts/index/">Voir tous les posts →</a></div>
+
+
+<div class="container">
+
+<!-- Outer Row -->
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="text-center col-lg-12">
+                        <div class="p-5">
+                            <main class="mb-4" >
+                            <h1>CONTACT</h1>
+                            <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+                            <div class="my-5">
+                                <form action="" method ="POST">
+                                    <div class="form-floating">
+                                        <input class="form-control" name="name" id="name" type="text" placeholder="Enter your name..." />
+                                        <label for="name">Name</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" name="email" id="email" type="email" placeholder="Enter your email..." />
+                                        <label for="email">Email address</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input class="form-control" name="phoneNumber" id="phone" type="text" placeholder="Enter your phone number..." />
+                                        <label for="phone">Phone Number</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <textarea class="form-control" name="message" id="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
+                                        <label for="message">Message</label>
+                                    </div>
+                                    <br />
+                                    <button type="submit" name="submit" class="btn btn-outline-success text-dark">Envoyer</button>
+                                </form>
+                            </div>
+                            </main>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

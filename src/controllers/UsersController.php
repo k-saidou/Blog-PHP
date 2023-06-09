@@ -18,10 +18,10 @@ class Users extends AbstractController{
         $this->twig->display('users/index.html.twig', compact('users'));
         }
 
-        public function read(){
+        public function show($id){
             $this->loadModel('User');
-            $users = $this->User->getAll();
-            $this->twig->display('users/read.html.twig', compact('users'));
+            $user = $this->User->findByID($id);
+            $this->twig->display('users/show.html.twig', compact('user'));
         }
 
         public function login(){
@@ -34,21 +34,53 @@ class Users extends AbstractController{
     // TODO controller non fonctionnel 
     public function new(){
 
+        $message = "";
 
         if(isset($_POST['submit'])){
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $email = $_POST['email'];
-            $password = $_POST['password'];
-         
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
+
+            $this->loadModel('user');
+            $user = $this->user->create($firstname, $lastname, $email, $password);
+            if($user = $create){
+                $_SESSION['message'] = 'Votre compte à été créer';
+
+            }
+            header("Location: /login/log");    
+
+
         }else{
-            $this->twig->display('users/new.html.twig');
+            $message = "Veuillez Remplir Tous Les Champs";
+
+            $this->twig->display('users/new.html.twig', compact('message'));
         }
-        $this->loadModel('user');
-        $user = $this->user->create($firstname, $lastname, $email, $password);
-        header("Location: /users/read");
 
     }
+
+   
+
+        // TODO PROBLEME AFFICHAGE POST
+        public function update($id){
+            $this->loadModel('User');
+            $user = $this->User->findById($id);
+    
+            if(isset($_POST['submit'])){
+                $firstname = $_POST['firstname'];
+                $lastname = $_POST['lastname'];
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+            $user = $this->User->update($firstname,$lastname,$email,$password,$id);   
+            header("Location: /users/index");
+     
+            }else{
+                $user = $this->User->findById($id);
+                $this->twig->display('users/update.html.twig', compact('user'));   
+    
+            }              
+    
+        }
 
 
     public function delete($id){

@@ -2,9 +2,7 @@
 
 
 {% block body %}
-
-<br><br>
-    <h1>Post index</h1>
+    <h1>Commentaires index</h1>
 
     <table class="table">
         <thead>
@@ -32,7 +30,7 @@
                 <td>{{ post.updateTime }}</td>
                 <td>{{ post.id_user }}</td>
                 <td>
-                    <a href="show/{{post.id}}";>show</a>
+                    <a href="show/{{post.id}}">show</a>
                     <a href="update/{{post.id}}">edit</a>
                     <a href="delete/{{post.id}}">delete</a>
                 </td>

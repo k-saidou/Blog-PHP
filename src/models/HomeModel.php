@@ -6,8 +6,9 @@ class Home extends AbstractModel{
     public function __construct()
     {
         // Nous définissons la table par défaut de ce modèle
-        $this->table = "post";
-    
+        $this->table = "contact";
+            $this->table = "post";
+
         // Nous ouvrons la connexion à la base de données
         $this->getConnection();
     }
@@ -36,6 +37,33 @@ class Home extends AbstractModel{
         $query->execute();
         return $query->fetchAll();    
     }
+
+    public function create($name, $email,$phoneNumber, $message){
+
+        $sql = "INSERT INTO `contact` ( `name`, `email`, `phoneNumber`, `message`)
+        VALUES (:name, :email, :phoneNumber, :message)";
+
+        try{
+
+            $query = $this->_connexion->prepare($sql);
+            $query->bindParam(':name', $name, PDO::PARAM_STR);
+            $query->bindParam(':email', $email, PDO::PARAM_STR);
+            $query->bindParam(':phoneNumber', $phoneNumber, PDO::PARAM_INT);
+            $query->bindParam(':message', $message, PDO::PARAM_STR);
+
+            $query->execute();
+            $contar = $query->rowCount();
+
+            if($contar>0){
+                echo 'Ajouté avec succes';
+            }else{
+                echo "Erreur";
+            }
+
+            }catch(PDOException $e){
+                echo $e;
+            }
+        }
 
 
 }

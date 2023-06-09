@@ -2,20 +2,17 @@
 
 
 {% block body %}
-<br><br><br>
-
     <h1>Commentaires index</h1>
-<br>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Contenu</th>
-                <th>Date</th>
-                <th>Statut</th>
-                <th>IdUser</th>
-                <th>IdPost</th>
+                <th>content</th>
+                <th>date</th>
+                <th>status</th>
+                <th>id user</th>
+                <th>id post</th>
                 <th>Action</th>
 
 
@@ -27,20 +24,13 @@
                 <td>{{ comment.id }}</td>
                 <td>{{ comment.content | u.truncate(25, '...', false) }}</td>
                 <td>{{ comment.date }}</td>
-                <td>{{ comment.statut }}</td>
+                <td>{{ comment.status }}</td>
                 <td>{{ comment.id_user }}</td>
                 <td>{{ comment.id_post }}</td>
                 <td>
-                
-                    <a role="submit" name="submit" class="btn btn-primary" href="update3/{{comment.id}}">Valider</a>
-                
-
-
-                    <!--<a href="comments/show/{{comment.id}}">Valider</a>-->
-                    <a href="delete/{{comment.id}}">supprimer</a>
-                    <a href="comments/show/{{comment.id}}">Voir</a>
+                    <a href="show/{{comment.id}}">show</a>
                     <a href="update/{{comment.id}}">edit</a>
-
+                    <a href="delete/{{comment.id}}">delete</a>
                 </td>
             </tr>
         {% else %}
@@ -51,4 +41,5 @@
         </tbody>
     </table>
 
+    <a href="new/">Create new</a>
 {% endblock %}
