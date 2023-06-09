@@ -1,11 +1,18 @@
 {
     "name": "keita/blog-php",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/",
+            "App\\": "app/"
+        }
+    },
     "authors": [
         {
             "name": "keita saidou",
             "email": "saidoukeita12@gmail.com"
         }
     ],
+
     "require": {
         "twig/twig": "^3.4",
         "twig/string-extra": "^3.4"

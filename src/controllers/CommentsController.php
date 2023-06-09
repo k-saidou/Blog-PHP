@@ -1,6 +1,9 @@
 <?php 
+namespace Src\controllers;
 
-class Posts extends AbstractController{
+use App\AbstractController;
+
+class CommentsController extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des posts
@@ -9,13 +12,13 @@ class Posts extends AbstractController{
      */
     public function index(){
         // On instancie le modèle "Post"
-        $this->loadModel('Post');
+        $this->loadModel('comment');
 
         // On stocke la liste des posts dans $posts
-        $posts = $this->Post->getAll();
+        $comments = $this->Comment->getAll();
 
         // On envoie les données à la vue lire
-        $this->twig->display('posts/index.html.twig', compact('posts'));
+        $this->twig->display('comment/index.html.twig', compact('posts'));
         }
 
     /**
@@ -30,4 +33,5 @@ class Posts extends AbstractController{
         $post = $this->Post->findById($id);
         $this->twig->display('posts/show.html.twig', compact('post'));
     }
+
 }

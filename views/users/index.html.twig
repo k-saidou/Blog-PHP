@@ -1,0 +1,47 @@
+{% extends 'default.html.twig' %}
+
+
+{% block body %}
+
+<br><br>
+    <h1>User index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Action</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.firstname }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <a href="show/{{user.id}}">show</a>
+                    <a href="update/{{user.id}}">edit</a>
+                    <a href="delete/{{user.id}}">delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="new/">Create new</a>
+{% endblock %}

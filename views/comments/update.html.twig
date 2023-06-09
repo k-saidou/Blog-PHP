@@ -1,0 +1,41 @@
+{% extends "default.html.twig" %}
+
+{% block body %}
+       
+    <!-- Page Header-->
+    <header class="masthead" style="background-image: url('http://localhost/blog-php/public/img/post-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section style="background-color: #ad655f;">
+          <hr class="my-0" />
+<div class="container">
+<h1>MODIFIER UN COMMENTAIRE</h1>
+
+<form action="" method ="POST">
+    <div class="form-group">
+    <br>
+    <div class="form-group">
+        <label for="content" >Contenu Du Commentaire</label>
+    <br><br>
+        <textarea name="content" id="content"  rows="8" class="form-control">
+        {{comment.content}} 
+        </textarea>
+    </div>
+    <br>
+    <br><br>
+    <button name="submit" type="submit" class="btn btn-primary">Enregistrer</button>
+</form>
+</div>
+
+</section>
+
+{% endblock %}
+
