@@ -7,6 +7,12 @@ class Login extends AbstractController{
 
         $message = "";
 
+        if(isset($_SESSION['message'])){
+            $message = $_SESSION['message'];
+        }else{
+            $message = "";
+        }
+
         if(!isset($_SESSION['id']) && (!isset($_SESSION['role']))) {
 
         if(isset($_POST['submit'])){
@@ -19,9 +25,9 @@ class Login extends AbstractController{
                 $_SESSION['message'] = 'Connecté avec succès';
                 header("Location: /");               
             }else{
-                $message = "Email et/ou Mot De Passe incorrect";
+                $error = "Email et/ou Mot De Passe incorrect";
 
-                $this->twig->display('login/connect.html.twig', compact('message'));
+                $this->twig->display('login/connect.html.twig', compact('message','error'));
             }
 
             }else{

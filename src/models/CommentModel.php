@@ -23,7 +23,8 @@ class Comment extends AbstractModel{
         $query = $this->_connexion->prepare($sql);
           $query->execute();
           return $query->fetch(PDO::FETCH_ASSOC);    
-      }  
+      }
+      
 
       public function showComment($id_post){
 
@@ -33,7 +34,13 @@ class Comment extends AbstractModel{
         return $query->fetchAll(PDO::FETCH_ASSOC);    
     } 
         
-
+    public function AllByUser($id_user){
+        //$sql = "SELECT * FROM `comment` WHERE id = $id AND id_post = $id_post ";
+        $sql = "SELECT * FROM `comment` WHERE id_user = $id_user";
+        $query = $this->_connexion->prepare($sql);
+          $query->execute();
+          return $query->fetch(PDO::FETCH_ASSOC);    
+      } 
   
         // TODO test creation Post à réaliser
         public function create($content, $id_user, $id_post){
@@ -70,12 +77,10 @@ class Comment extends AbstractModel{
 
             public function update($content, $id){
 
-                $sql = "UPDATE `comment` SET `content` = :content WHERE `id` = :id";
-                //$sql = "UPDATE `comment` SET `content` = :content WHERE `id` = :id AND `id_post` = :id_post";
+                $sql = "UPDATE `comment` SET `content` = :content, `statut` = 'Waiting for validation' WHERE `id` = :id";
                 $query = $this->_connexion->prepare($sql);
                 $query->bindParam(':content', $content, PDO::PARAM_STR);
                 $query->bindParam(':id', $id, PDO::PARAM_INT);
-                //$query->bindParam(':id_post', $id_post, PDO::PARAM_INT);
 
                 $query->execute();
         

@@ -35,5 +35,12 @@
         {% endfor %}
         </div>
     </div>
-
+    <hr>
+    <br>
+    {% if session.role == 'ADMIN' or session.role == 'USER' %}
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <a class="btn btn-outline-primary btn-sm" href="/posts/new">Créer un Post</a>
+    </div> 
+    {% endif %} 
+    <br>                                      
 {% endblock %}

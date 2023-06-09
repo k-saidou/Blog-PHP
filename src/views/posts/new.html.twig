@@ -1,11 +1,21 @@
+
 {% extends "default.html.twig" %}
 
 {% block body %}
-
-
+<br><br>
+<br>
 <div class="container">
+<br>
 <h1>CREER UN POST</h1>
-
+<br>
+    <div class="error">
+        <div class="close" onclick="this.parentElement.remove()">X</div>
+        {{error}}
+    </div>                                        
+    <div class="success">
+        <div class="close" onclick="this.parentElement.remove()">X</div>
+        {{message}}
+    </div>
 <form action="" method ="POST">
     <div class="form-group">
         <label for="titre" >Titre du post</label>
@@ -21,30 +31,16 @@
     <br>
     <div class="form-group">
         <label for="contenu" >Contenu du post</label>
-        <textarea name="contenu" id="contenu"  rows="8" class="form-control">
+        <textarea name="contenu" id="contenu"  rows="8" class="form-control" placeholder=
+        "contenu du post">
         </textarea>
     </div>
+    <br><hr>
     <br>
-        <div class="form-group">
-        <label for="creation" >creation</label>
-        <input type="dateTime" class="form-control" id="creationTime" name="creationTime" placeholder=
-        "creationTime">
-    </div>
-    <br>
-    <div class="form-group">
-        <label for="updateTime" >date</label>
-        <input type="DateTime" class="form-control" id="updateTime" name="updateTime" placeholder=
-        "updateTime">
-    </div>
-    <br>
-    <div class="form-group">
-        <label for="iduser" >iduser</label>
-        <input type="text" class="form-control" id="iduser" name="iduser" placeholder=
-        "iduser">
-    </div>
-    <br>
-    <br><br>
-    <button type="submit" name="submit" class="btn btn-primary">Enregistrer</button>
+    <div class="d-grid gap-2 col-6 mx-auto">
+    <button type="submit" name="submit" class="btn btn-outline-success btn-sm">Enregistrer</button>
+    </div>   
+    <br>                                     
 </form>
 </div>
 

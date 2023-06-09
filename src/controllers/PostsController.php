@@ -1,10 +1,7 @@
 <?php 
-namespace Src\controllers;
 
-use App\AbstractController;
-use Src\Entity\Post;
 
-class PostsController extends AbstractController{
+class Posts extends AbstractController{
 
     /**
      * Cette méthode affiche la liste des posts
@@ -22,62 +19,125 @@ class PostsController extends AbstractController{
         $this->twig->display('posts/index.html.twig', compact('posts'));
         }
 
+        // TODO FONCTIONNEL
+    public function read(){
+
+        if(isset($_SESSION['message'])){
+            $message = $_SESSION['message'];
+        }else{
+            $message = "";
+        }
+        
+        $this->loadModel('Post');
+        if($_SESSION['role'] == 'ADMIN'){
+            $posts = $this->Post->getAll();
+        }else{
+            $id_user = $_SESSION['id'];
+            $posts = $this->Post->AllByUser($id_user);
+        }
+
+        $this->twig->display('posts/read.html.twig', compact('posts','message'));
+    }
+
     /**
      * Méthode permettant d'afficher un post à partir de son id
      *
      * @param int $id
      * @return void
      */
-    public function show(string $id){
+    public function show($id){
 
         $this->loadModel('Post');
         $post = $this->Post->findById($id);
-        $this->twig->display('posts/show.html.twig', compact('post'));
+        $this->loadModel('Comment');
+        $comments = $this->Comment->showComment($id);
+
+
+            if(isset($_POST['submit'])){
+                $content = $_POST['content'];
+                $id_user = $_SESSION['id']; 
+                $id_post = $id;      
+                
+                $this->loadModel('comment');
+                $comment = $this->comment->create($content, $id_user, $id_post);
+               
+            }
+           
+    
+        $this->twig->display('posts/show.html.twig', compact('post','comments'));
+
     }
 
-    public function read(){
+    // TODO PROBLEME AFFICHAGE POST
+    public function update($id){
+        $message = "";
+        if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
+
+        
         $this->loadModel('Post');
-        $posts = $this->Post->getAll();
-        $this->twig->display('posts/read.html.twig', compact('posts'));
-    }
-
-    public function delete($id){
-        $this->loadModel('post');
-        $post = $this->post->deletePost($id);
-        $this->twig->display('posts/index.html.twig');
-    }
-
-    public function new(){
-
-        $post = new Post();
+        $post = $this->Post->findById($id);
 
         if(isset($_POST['submit'])){
             $titre = $_POST['titre'];
             $chapo = $_POST['chapo'];
-            $contenu = $_POST['contenu'];
-            $creationTime = $_POST['creationTime'];
-            $updateTime = $_POST['updateTime'];
-            $id_user = $_POST['iduser'];
-
-            $post->create();
-
-/*
-            if(!empty($_POST['titre'])and !empty($_POST['chapo'])and !empty($_POST['contenu'])){
-                $titre=htmlspecialchars($_POST['titre']);
-                $chapo=htmlspecialchars($_POST['chapo']);
-                $contenu=htmlspecialchars($_POST['contenu']);
-            }*/
+            $contenu = $_POST['content'];
+        $post = $this->Post->update($titre,$chapo,$contenu,$id);  
+        if($post !== false){
+            $_SESSION['message'] = 'Votre Post a bien été Modifié';
         }
+        header("Location: /posts/read");
+ 
+        }else{
+            $error = "Une erreur est survenue";
+            $this->twig->display('posts/update.html.twig', compact('post','message','error'));   
 
-         return $this->twig->display('posts/new.html.twig');
+        }              
+    }else{
+        header("Location: /login/log");
 
     }
-
-    public function update($id){
-        $this->loadModel('post');
-        $post = $this->post->update($id);                  
-        $this->twig->display('posts/update.html.twig');
-
     }
 
+
+    
+    // TODO fonctionnel, MANQUE DATE ET ID
+    public function new(){
+        $message = "";
+        
+        if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
+
+            if(isset($_POST['submit'])){
+            $titre = $_POST['titre'];
+            $chapo = $_POST['chapo'];
+            $contenu = $_POST['contenu'];
+            $id_user = $_SESSION['id'];
+            
+            $this->loadModel('Post');
+            $post = $this->Post->create($titre, $chapo, $contenu, $id_user);
+                if($post != false){
+                $_SESSION['message'] = 'Votre Post a bien été créer';
+                header("Location: /posts/read");
+                }else{
+                $error = "Veuillez remplir tous les champs.";
+                $this->twig->display('posts/new.html.twig', compact('message','error'));
+                    }
+                }else{
+                    $this->twig->display('posts/new.html.twig');
+                }
+            }else{
+            header("Location: /login/log");
+                }
+        }
+  
+    
+    // FONCTIONNEL 
+    public function delete($id){
+        $this->loadModel('Post');
+        $post = $this->Post->deletePost($id);
+        if($post !== false){
+            $_SESSION['message'] = 'Votre Post a bien été supprimer';
+        }
+        header("Location: /posts/read");
+    }
+    
 }

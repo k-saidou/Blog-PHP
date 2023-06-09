@@ -1,13 +1,6 @@
 <?php 
 
-namespace Src\models;
-
-use PDO;
-use PDOException;
-use Src\Entity\Post;
-use App\AbstractModel;
-
-class PostModel extends AbstractModel{
+class Post extends AbstractModel{
 
     public function __construct()
     {
@@ -17,74 +10,69 @@ class PostModel extends AbstractModel{
         // Nous ouvrons la connexion à la base de données
         $this->getConnection();
     }
+        
+    /**
+     * Retourne un post en fonction de son id
+     *
+     * @param int $id
+     * @return void
+     */
+    public function findById($id){
+        //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
+          $sql = "SELECT * FROM `post` WHERE id = $id ";
+          $query = $this->_connexion->prepare($sql);
+          $query->execute();
+          return $query->fetch(PDO::FETCH_ASSOC);    
+      }  
+      public function AllByUser($id_user){
+        $sql = "SELECT * FROM `post` WHERE id_user = $id_user";
+        $query = $this->_connexion->prepare($sql);
+          $query->execute();
+          return $query->fetchAll(PDO::FETCH_ASSOC);    
+      }
     
+      
+        public function create($titre, $chapo, $contenu, $id_user){
 
-    public function deletePost($id) {
-        $req = $this->_connexion->prepare('DELETE FROM post WHERE id = ?');
-        $req->execute(array($id));
-    }
-
-    /*
-    // TODO non termine 
-    public function create($titre, $chapo, $contenu, $creationTime, $updateTime, $id_user){
-
-        $sql = 'INSERT INTO post(titre, chapo, contenu, creationTime, updateTime, id_user) 
-        VALUES(:titre, :chapo, :contenu, :creationTime, :updateTime, :id_user)';
-        $stmt = $this->_connexion->prepare($sql);
-        $stmt->bindValue(':titre', $titre, PDO::PARAM_STR);
-        $stmt->bindValue(':chapo', $chapo, PDO::PARAM_STR);
-        $stmt->bindValue(':contenu', $contenu, PDO::PARAM_STR);
-        $stmt->bindValue(':creationTime', $creationTime, PDO::PARAM_STR);
-        $stmt->bindValue(':updateTime', $updateTime, PDO::PARAM_STR);
-        $stmt->bindValue(':id_user', $id_user, PDO::PARAM_STR);
-        $stmt->execute(array($titre, $chapo, $contenu, $creationTime, $updateTime, $id_user));
-    }
-    */
-
-
-    // TODO test creation Post à réaliser
-    public function create(){
-
-
-        if(isset($_POST['submit'])){
-
-            $titre = $_POST['titre'];
-            $chapo = $_POST['chapo'];
-            $contenu = $_POST['contenu'];
-
-            try {
-
-                $query = $this->_connexion->prepare("INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
-                VALUES (:titre, :chapo, :contenu, NULL, NULL, NULL)");
-                $statement = $this->_connexion->prepare($query);
-                $statement->bindParam(1, $titre);
-                $statement->bindParam(2, $chapo);
-                $statement->bindParam(3, $contenu);
-                $query_execute = $statement->execute();
-
-                if($query_execute){
-                    $_SESSION['message'] = "Post Ajouté";
-                    header('Location: read.html.twig');
-                    exit(0);
-                } else{
-                    $_SESSION['message'] = "Post Non Ajouté";
-                    header('Location: read.html.twig');
-                    exit(0);
+            $sql = "INSERT INTO `post` (`titre`, `chapo`, `contenu`, `creationTime`, `updateTime`, `id_user`)
+            VALUES (:titre, :chapo, :contenu, NOW(), NULL, :id_user)";
+    
+            try{
+    
+                $query = $this->_connexion->prepare($sql);
+                $query->bindParam(':titre', $titre, PDO::PARAM_STR);
+                $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
+                $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
+                $query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
+                $query->execute();
+                $contar = $query->rowCount();
+    
+                if($contar>0){
+                    echo 'Ajouté avec succes';
+                }else{
+                    echo "Erreur";
                 }
-
-
-            } catch (PDOException $e) {
-                echo "My Error Type:". $e->getMessage();
+    
+                }catch(PDOException $e){
+                    echo $e;
+                }
             }
-        }
 
+            public function deletePost($id) {
+                $req = $this->_connexion->prepare('DELETE FROM post WHERE id = ?');
+                $req->execute(array($id));
+            }
 
-                
-            
-    }
+            public function update($titre, $chapo, $contenu, $id){
 
-    public function update($id){
-        $req = $this->_connexion->prepare('UPDATE post SET titre = :titre, chapo = :chapo, contenu = :contenu WHERE id = :id');
-        $req->execute();
-    }
+                $sql = "UPDATE `post` SET `titre` = :titre, `chapo` = :chapo, `contenu` = :contenu, `updateTime` = NOW() WHERE `id` = :id";
+                $query = $this->_connexion->prepare($sql);
+                $query->bindParam(':titre', $titre, PDO::PARAM_STR);
+                $query->bindParam(':chapo', $chapo, PDO::PARAM_STR);
+                $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
+                $query->bindParam(':id', $id, PDO::PARAM_INT);
+                $query->execute();
+        
+            }
+
 }
