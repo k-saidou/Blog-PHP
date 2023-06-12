@@ -103,7 +103,6 @@ class Users extends AbstractController{
 
     public function delete($id){
 
-        $message = "";
         $this->loadModel('user');
         $user = $this->user->deleteUser($id);
         if($user !== false){

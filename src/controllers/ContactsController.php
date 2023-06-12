@@ -43,7 +43,6 @@ class Contacts extends AbstractController{
      * @return void
      */
     public function delete($id){
-        $message = "";
         $this->loadModel('contact');
         $contact = $this->contact->deleteContact($id);
         if($contact !== false){
