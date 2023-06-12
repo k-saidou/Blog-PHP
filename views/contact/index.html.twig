@@ -4,38 +4,57 @@
 {% block body %}
 
 <br><br>
-    <h1>Contact</h1>
+<br>
+<h1>Contact</h1>
+<br>
+{% if error != "" %}                                       
+<div class="error">
+    <div class="close" onclick="this.parentElement.remove()">X</div>
+    {{error}}
+</div> 
+{% endif %}
+{% if message != "" %}                                       
+<div class="success">
+    <div class="close" onclick="this.parentElement.remove()">X</div>
+    {{message}}
+</div>    
+{% endif %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>PhoneNumber</th>
-                <th>Message</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
+{% if info != "" %}                                       
+<div class="info">
+    <div class="close" onclick="this.parentElement.remove()">X</div>
+    {{info}}
+</div>
+{% endif %}
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th>Message</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for contact in contacts %}
-            <tr class="table-active">
-                <td>{{ contact.id }}</td>
-                <td>{{ contact.name }}</td>
-                <td>{{ contact.email }}</td>
-                <td>{{ contact.phoneNumber }}</td>
-                <td>{{ contact.message | u.truncate(25, '...', false) }}</td>
-                <td>
-                    <a href="show/{{contact.id}}">show</a>
-                    <a href="delete/{{contact.id}}">delete</a>
-                </td>
-            </tr>
+        <tr class="table-active">
+            <td>{{ contact.id }}</td>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.email }}</td>
+            <td>{{ contact.phoneNumber }}</td>
+            <td>{{ contact.message | u.truncate(25, '...', false) }}</td>
+            <td>
+                <a class="btn btn-outline-primary btn-sm" href="show/{{contact.id}}">Voir</a>
+                <a class="btn btn-outline-danger btn-sm" href="delete/{{contact.id}}">Supprimer</a>
+            </td>
+        </tr>
         {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+        <tr>
+            <td colspan="3">no records found</td>
+        </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
+    </tbody>
+</table>
 {% endblock %}
