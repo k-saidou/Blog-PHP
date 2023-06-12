@@ -30,7 +30,7 @@ abstract class AbstractModel{
             $this->_connexion = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
             $this->_connexion->exec("set names utf8");
         }catch(PDOException $exception){
-            echo "Erreur de connexion : " . $exception->getMessage();
+            return $exception;
         }
     }   
 
@@ -59,8 +59,8 @@ abstract class AbstractModel{
         return $query->fetchAll();    
     }
 
-            /**
-     * Méthode permettant d'obtenir tous les enregistrements de la table choisie
+    /**
+     * Méthode permettant d'obtenir les 4 derniers enregistrements de la table choisie
      *
      * @return void
      */
@@ -70,23 +70,4 @@ abstract class AbstractModel{
         $query->execute();
         return $query->fetchAll();    
     }
-
-        /**
-     * Retourne un post en fonction de son id
-     *
-     * @param int $id
-     * @return void
-     */
-    public function findById2( $id_post, $statut){
-        //  $sql = "SELECT * FROM ".$this->table." WHERE `id`='".$id."'";
-        //  $sql = "SELECT * FROM `comment` WHERE comment.id_post = :id";
-          $sql = "SELECT * FROM `comment` WHERE `id_post`= :id_post AND `statut`='Accept' ORDER BY `date` ASC";
-
-          $query = $this->_connexion->prepare($sql);
-          $query->bindParam(':id_post', $id_post, PDO::PARAM_INT);
-          $query->bindParam(':statut', $statut, PDO::PARAM_STR);
-          $query->execute();
-          return $query->fetch(PDO::FETCH_ASSOC);    
-      }
-
 }

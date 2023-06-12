@@ -5,56 +5,62 @@
 
 <br><br>
 <br>
-    <h1>Commentaires index</h1>
+<h1>Commentaires index</h1>
 <br>
-    <div class="error">
-        <div class="close" onclick="this.parentElement.remove()">X</div>
-        {{error}}
-    </div>                                        
-    <div class="success">
-        <div class="close" onclick="this.parentElement.remove()">X</div>
-        {{message}}
-    </div>
-       <div class="info">
-        <div class="close" onclick="this.parentElement.remove()">X</div>
-        {{info}}
-    </div>
-    <table class="table table-striped table-hover">
-        <thead class="table-dark">
-            <tr>
-                <th>Id</th>
-                <th>Contenu</th>
-                <th>Date</th>
-                <th>Statut</th>
-                <th>IdUser</th>
-                <th>IdPost</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for comment in comments %}
-            <tr>
-                <td>{{ comment.id }}</td>
-                <td>{{ comment.content | u.truncate(25, '...', false) }}</td>
-                <td>{{ comment.date }}</td>
-                <td>{{ comment.statut }}</td>
-                <td>{{ comment.id_user }}</td>
-                <td>{{ comment.id_post }}</td>
-                <td>        
-                    {% if session.role == 'ADMIN' %}
-                    <a role="submit" name="submit" class="btn btn-outline-success btn-sm" href="updateCom/{{comment.id}}">Valider</a>
-                    {% endif %}
-                    <a class="btn btn-outline-primary btn-sm" href="show/{{comment.id}}">Voir</a>
-                    <a class="btn btn-outline-secondary btn-sm" href="update/{{comment.id}}">Modifier</a>
-                    <a class="btn btn-outline-danger btn-sm" href="delete/{{comment.id}}">Supprimer</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+{% if error != "" %}                                       
+<div class="error">
+    <div class="close" onclick="this.parentElement.remove()">X</div>
+    {{error}}
+</div> 
+{% endif %}
+{% if message != "" %}                                       
+<div class="success">
+    <div class="close" onclick="this.parentElement.remove()">X</div>
+    {{message}}
+</div>    
+{% endif %}
 
+{% if info != "" %}                                       
+<div class="info">
+    <div class="close" onclick="this.parentElement.remove()">X</div>
+    {{info}}
+</div>
+{% endif %}
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Contenu</th>
+            <th>Date</th>
+            <th>Statut</th>
+            <th>IdUser</th>
+            <th>IdPost</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for comment in comments %}
+        <tr>
+            <td>{{ comment.id }}</td>
+            <td>{{ comment.content | u.truncate(25, '...', false) }}</td>
+            <td>{{ comment.date }}</td>
+            <td>{{ comment.statut }}</td>
+            <td>{{ comment.id_user }}</td>
+            <td>{{ comment.id_post }}</td>
+            <td>        
+                {% if session.role == 'ADMIN' %}
+                <a role="submit" name="submit" class="btn btn-outline-success btn-sm" href="updateCom/{{comment.id}}">Valider</a>
+                {% endif %}
+                <a class="btn btn-outline-primary btn-sm" href="show/{{comment.id}}">Voir</a>
+                <a class="btn btn-outline-secondary btn-sm" href="update/{{comment.id}}">Modifier</a>
+                <a class="btn btn-outline-danger btn-sm" href="delete/{{comment.id}}">Supprimer</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="3">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

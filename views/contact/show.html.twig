@@ -1,18 +1,19 @@
   {% extends 'default.html.twig' %}
 
-
 {% block body %}
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
-        <div class="col-xl-10 col-lg-12 col-md-9">
-            <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
-                        <div class="text-center col-lg-12">
-                            <div class="p-5">
+<br><br>
+<br>  
+<!-- Outer Row -->
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="text-center col-lg-12">
+                        <div class="p-5">
                             <main class="mb-4" >
-                            <h1>CONTACT</h1>
+                                <h1>CONTACT</h1>
                                 <div class="my-5">
                                     <div class="form">
                                         <label for="name">{{contact.name}}</label>
@@ -29,7 +30,6 @@
                                     <br />
                                 </div>
                             </main>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -37,6 +37,12 @@
         </div>
     </div>
 </div>
-<button class="btn btn-primary"><a href="/contacts/index">Retour</a></button>
-
+</div>
+<hr>
+<br>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <a class="btn btn-outline-secondary btn-sm" href="/contacts/index">Retour</a>
+    <a role="submit" name="submit" class="btn btn-outline-danger btn-sm" href="/contacts/delete/{{contact.id}}">Supprimer</a>
+</div>   
+<br>                                     
 {% endblock %}

@@ -8,6 +8,8 @@ require 'vendor/autoload.php';
 
 require_once(ROOT. 'app/AbstractModel.php');
 require_once(ROOT. 'app/AbstractController.php');
+require_once(ROOT. 'src/Globals/Globals.php');
+require_once(ROOT. 'src/session.php');
 
 
 // On sépare les paramètres et on les met dans le tableau $params
