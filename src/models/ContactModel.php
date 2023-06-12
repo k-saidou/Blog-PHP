@@ -48,7 +48,7 @@ class Contact extends AbstractModel{
             $query->execute();
 
         }catch(PDOException $e){
-            echo $e;
+            return $e;
             }
         }
 }

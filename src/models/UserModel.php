@@ -38,10 +38,9 @@ class User extends AbstractModel{
             $query->bindParam(':email', $email, PDO::PARAM_STR);
             $query->bindParam(':password', $password, PDO::PARAM_STR);
             $query->execute();
-            $contar = $query->rowCount();
 
         }catch(PDOException $e){
-                echo $e;
+                return $e;
             }
     }
 

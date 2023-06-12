@@ -27,9 +27,12 @@ abstract class AbstractController{
 
     private $loader;
     protected $twig;
+    protected $POST;
 
     public function __construct()
     {
+        $this->POST = filter_input_array(INPUT_POST) ?? null;
+
         $this->loader = new FilesystemLoader(ROOT. '/views');
         $this->twig = new Environment($this->loader);
         $this->twig->addGlobal('session', $_SESSION);

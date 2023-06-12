@@ -18,12 +18,6 @@ class Comments extends AbstractController{
         }else{
             $message = "";
         }
-        if(isset($_SESSION['info'])){
-            $info = $_SESSION['info'];
-            unset($_SESSION['info']);
-        }else{
-            $info = "";
-        }
         
         // On instancie le modèle "Comment"
         $this->loadModel('Comment');
@@ -33,10 +27,10 @@ class Comments extends AbstractController{
             $comments = $this->Comment->getAll();
         }else{
             $id_user = $_SESSION['id'];
-            $comments[] = $this->Comment->AllByUser($id_user);
+            $comments = $this->Comment->AllByUser($id_user);
         }
         // On envoie les données à la vue lire
-        $this->twig->display('comments/index.html.twig', compact('comments','message','info'));
+        $this->twig->display('comments/index.html.twig', compact('comments','message'));
     } 
 
 
@@ -60,7 +54,6 @@ class Comments extends AbstractController{
      * @return void
      */
     public function delete($id){
-        $message = "";
         $this->loadModel('comment');
         $comment = $this->comment->deleteCom($id);
         if($comment !== false){
@@ -77,22 +70,22 @@ class Comments extends AbstractController{
      */
     public function update($id){
 
-        $info = "";
+        $message = "";
 
         if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
             $this->loadModel('Comment');
             $comment = $this->Comment->findById($id);
 
-            if(isset($_POST['submit'])){
-                $content = $_POST['content'];
+            if(isset($this->POST['submit'])){
+                $content = $this->POST['content'];
                 $comment = $this->Comment->update($content,$id); 
-                if($post !== false){
-                    $_SESSION['info'] = 'Votre Commentaire a bien été Modifié, un admin le validera prochainement';
+                if($comment !== false){
+                    $_SESSION['message'] = 'Votre Commentaire a bien été Modifié, un admin le validera prochainement';
                 }          
                 header("Location: /comments/index");
             }else{
                 $error = "Une erreur est survenue, veuillez réessayer ultérieurement.";
-                $this->twig->display('comments/update.html.twig', compact('comment','info','error'));   
+                $this->twig->display('comments/update.html.twig', compact('comment','message','error'));   
             }             
         }else{
             header("Location: /login/log");

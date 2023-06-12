@@ -36,7 +36,7 @@ class Logins extends AbstractModel{
                 return false;
                 }
         }catch(PDOException $e){
-            echo $e;
+            return $e;
             }
     }
 }

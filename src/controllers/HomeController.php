@@ -4,7 +4,6 @@
 class Home extends AbstractController{
 
     public function index(){
-        $info = "";
 
         // On verifie si il y a un message flash
         if(isset($_SESSION['message'])){
@@ -15,12 +14,8 @@ class Home extends AbstractController{
         }else{
             $message = "";
         }
-        if(isset($_SESSION['info'])){
-            $info = $_SESSION['info'];
-            unset($_SESSION['info']);
-        }else{
-            $info = "";
-        }
+        $info = "";
+
         // On instancie le modèle "Post"
         $this->loadModel('Post');
         // On stocke la liste des 4 derniers Post dans $posts
@@ -29,22 +24,23 @@ class Home extends AbstractController{
         // On envoie les données à la vue 
         $this->twig->display('home/index.html.twig', compact('posts', 'message','info'));
 
-        if(isset($_POST['submit'], $_POST['name'], $_POST['email'], $_POST['phoneNumber'], $_POST['message'])){
-            if(!empty($_POST['name'])&& !empty($_POST['email']) && !empty($_POST['phoneNumber']) && !empty($_POST['message'])){
+        if(isset($this->POST['submit'], $this->POST['name'], $this->POST['email'], $this->POST['phoneNumber'], $this->POST['message'])){
+            if(!empty($this->POST['name'])&& !empty($this->POST['email']) && !empty($this->POST['phoneNumber']) && !empty($this->POST['message'])){
         
-                $name = $_POST['name'];            
-                $email = $_POST['email'];
-                $phoneNumber = $_POST['phoneNumber'];
-                $message = $_POST['message'];
+                $name = $this->POST['name'];            
+                $email = $this->POST['email'];
+                $phoneNumber = $this->POST['phoneNumber'];
+                $message = $this->POST['message'];
 
                 $this->loadModel('contact');
                 $contact = $this->contact->create($name, $email, $phoneNumber, $message);
                 if($contact !== false){
                     $_SESSION['info'] = 'Votre message a bien été transmis';
                 }
+                header("location: /");
             }else{
                 $error = "Une erreur est survenue, Veuillez réessayer ultérieurement.";
-                $this->twig->display('home/index.html.twig', compact('posts','error'));
+                $this->twig->display('home/index.html.twig', compact('posts','error','message'));
             }
         }
     }

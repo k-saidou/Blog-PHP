@@ -51,10 +51,9 @@ class Post extends AbstractModel{
             $query->bindParam(':contenu', $contenu, PDO::PARAM_STR);
             $query->bindParam(':id_user', $id_user, PDO::PARAM_INT);
             $query->execute();
-            $contar = $query->rowCount();
     
         }catch(PDOException $e){
-            echo $e;
+            return $e;
             }
     }
 

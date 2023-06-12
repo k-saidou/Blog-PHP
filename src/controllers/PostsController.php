@@ -59,8 +59,8 @@ class Posts extends AbstractController{
         $this->loadModel('Comment');
         $comments = $this->Comment->showComment($id);
 
-        if(isset($_POST['submit'])){
-            $content = $_POST['content'];
+        if(isset($this->POST['submit'])){
+            $content = $this->POST['content'];
             $id_user = $_SESSION['id']; 
             $id_post = $id;      
             
@@ -82,10 +82,10 @@ class Posts extends AbstractController{
             $this->loadModel('Post');
             $post = $this->Post->findById($id);
 
-            if(isset($_POST['submit'])){
-                $titre = $_POST['titre'];
-                $chapo = $_POST['chapo'];
-                $contenu = $_POST['content'];
+            if(isset($this->POST['submit'])){
+                $titre = $this->POST['titre'];
+                $chapo = $this->POST['chapo'];
+                $contenu = $this->POST['content'];
                 $post = $this->Post->update($titre,$chapo,$contenu,$id);  
                 if($post !== false){
                     $_SESSION['message'] = 'Votre Post a bien été Modifié';
@@ -113,10 +113,10 @@ class Posts extends AbstractController{
         $message = "";
         if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
 
-            if(isset($_POST['submit'])){
-            $titre = $_POST['titre'];
-            $chapo = $_POST['chapo'];
-            $contenu = $_POST['contenu'];
+            if(isset($this->POST['submit'])){
+            $titre = $this->POST['titre'];
+            $chapo = $this->POST['chapo'];
+            $contenu = $this->POST['contenu'];
             $id_user = $_SESSION['id'];
             
             $this->loadModel('Post');

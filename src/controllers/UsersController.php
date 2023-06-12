@@ -1,6 +1,8 @@
 <?php
 
+
 class Users extends AbstractController{
+    
 
     /**
      * Cette méthode affiche la liste des Users
@@ -11,7 +13,7 @@ class Users extends AbstractController{
         // On verifie si il y a un message flash
         if(isset($_SESSION['message'])){
         // On affiche le message    
-            $message = $_SESSION['message'];
+            $message = ['message'];
         // On supprime le message si la page est actualisé
             unset($_SESSION['message']);
         }else{
@@ -25,7 +27,7 @@ class Users extends AbstractController{
             $users = $this->User->getAll();
         }else{
             $id = $_SESSION['id'];
-            $users = $this->User->findById($id);
+            $users[] = $this->User->findById($id);
         }
         // On envoie les données à la vue 
         $this->twig->display('users/index.html.twig', compact('users','message'));
@@ -46,18 +48,16 @@ class Users extends AbstractController{
     public function new(){
 
         $message = "";
-        if(isset($_POST['submit'], $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password'])){
-            if(!empty($_POST['fistname'])&& !empty($_POST['lastname']) && !empty($_POST['email']) && !empty($_POST['password'])){
-
-                $firstname = $_POST['firstname'];
-                $lastname = $_POST['lastname'];
-                $email = $_POST['email'];
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
+        if(isset($this->POST['submit'], $this->POST['firstname'], $this->POST['lastname'], $this->POST['email'], $this->POST['password'])){
+            if(!empty($this->POST['firstname']) && !empty($this->POST['lastname']) && !empty($this->POST['email']) && !empty($this->POST['password'])){
+                        $firstname = $this->POST['firstname'];
+                $lastname = $this->POST['lastname'];
+                $email = $this->POST['email'];
+                $password = password_hash($this->POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
 
                 $this->loadModel('user');
                 $user = $this->user->create($firstname, $lastname, $email, $password);
-
-                if($user !== false){
+                if($user != false){
                     $_SESSION['message'] = 'Votre compte à été créer';
                 }
                 header("Location: /login/log");    
@@ -82,14 +82,14 @@ class Users extends AbstractController{
         $this->loadModel('User');
         $user = $this->User->findById($id);
 
-        if(isset($_POST['submit'])){
-            $firstname = $_POST['firstname'];
-            $lastname = $_POST['lastname'];
-            $email = $_POST['email'];
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
+        if(isset($this->POST['submit'])){
+            $firstname = $this->POST['firstname'];
+            $lastname = $this->POST['lastname'];
+            $email = $this->POST['email'];
+            $password = password_hash($this->POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
             $user = $this->User->update($firstname,$lastname,$email,$password,$id);  
 
-            if($user !== false){
+            if($user != true){
                 $_SESSION['message'] = 'Modifier avec succès';
             }
             header("Location: /users/index");
