@@ -1,4 +1,5 @@
 # Blog-PHP
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/048aae2fb4274734890ee0eb8b6972dc)](https://app.codacy.com/gh/k-saidou/Blog-PHP/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 # Démarrer le projet
 Cloner le projet avec git clone ou télécharger le zip.
