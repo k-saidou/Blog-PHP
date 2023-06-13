@@ -22,9 +22,9 @@ class Login extends AbstractController{
 
         if(!isset($_SESSION['id']) && (!isset($_SESSION['role']))) {
 
-            if(isset($_POST['submit'])){
-                $email = $_POST['email'];
-                $password = $_POST['password'];
+            if(isset($this->POST['submit'])){
+                $email = $this->POST['email'];
+                $password = $this->POST['password'];
                 
                 $this->loadModel('Logins');
                 $login = $this->Logins->connexion($email, $password);

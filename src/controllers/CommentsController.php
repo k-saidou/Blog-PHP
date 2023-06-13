@@ -100,7 +100,6 @@ class Comments extends AbstractController{
      */
     public function updateCom($id){
 
-        $message = "";
 
         if(isset($_SESSION['id']) && $_SESSION['id'] != NULL){
             $this->loadModel('Comment');

@@ -14,7 +14,18 @@ class Home extends AbstractController{
         }else{
             $message = "";
         }
-        $info = "";
+
+       // $info = "";
+
+        // On verifie si il y a un message flash
+        if(isset($_SESSION['info'])){
+            // On affiche le message    
+            $info = $_SESSION['info'];
+            // On supprime le message si la page est actualisé
+            unset($_SESSION['info']);
+        }else{
+            $info = "";
+        }
 
         // On instancie le modèle "Post"
         $this->loadModel('Post');
@@ -40,7 +51,7 @@ class Home extends AbstractController{
                 header("location: /");
             }else{
                 $error = "Une erreur est survenue, Veuillez réessayer ultérieurement.";
-                $this->twig->display('home/index.html.twig', compact('posts','error','message'));
+                $this->twig->display('home/index.html.twig', compact('posts','error','message','info'));
             }
         }
     }
