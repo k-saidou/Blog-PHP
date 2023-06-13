@@ -26,12 +26,7 @@
               src="http://localhost/blog-php/public/img/post-bg.jpg" alt="avatar" width="60"
               height="60" />
             <div>
-              <h6 class="fw-bold mb-1">{{comment.id_user}}</h6>
-              <div class="d-flex align-items-center mb-3">
-                <p class="mb-0">
-                  {{comment.date}}
-                </p>
-              </div>
+              <small>Ce commentaire a été posté le {{comment.date}} par {{comment.id_user}}</small>
               <p class="mb-0">
                 {{comment.content}}
               </p>

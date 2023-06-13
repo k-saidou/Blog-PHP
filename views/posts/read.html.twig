@@ -42,7 +42,7 @@
             <td>{{ post.updateTime | u.truncate(10, '', false)}}</td>
             <td>{{ post.id_user }}</td>
             <td>
-                <a class="btn btn-outline-success btn-sm" href="show/{{postd}}">Voir</a>
+                <a class="btn btn-outline-success btn-sm" href="show/{{post.id}}">Voir</a>
                 <a class="btn btn-outline-primary btn-sm" href="update/{{post.id}}">Modifier</a>
                 <a class="btn btn-outline-danger btn-sm" href="delete/{{post.id}}">Supprimer</a>
             </td>

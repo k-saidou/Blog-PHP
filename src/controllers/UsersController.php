@@ -10,6 +10,8 @@ class Users extends AbstractController{
      * @return void
      */
     public function index(){
+        var_dump($_SESSION);
+
         // On verifie si il y a un message flash
         if(isset($_SESSION['message'])){
         // On affiche le message    
@@ -73,11 +75,6 @@ class Users extends AbstractController{
     public function update($id){
 
         $message = "";
-        if(isset($_SESSION['message'])){
-            $message = $_SESSION['message'];
-        }else{
-            $message = "";
-            }
 
         $this->loadModel('User');
         $user = $this->User->findById($id);
@@ -89,7 +86,7 @@ class Users extends AbstractController{
             $password = password_hash($this->POST['password'], PASSWORD_DEFAULT, ['cost' => 12]);
             $user = $this->User->update($firstname,$lastname,$email,$password,$id);  
 
-            if($user != true){
+            if($user !== false){
                 $_SESSION['message'] = 'Modifier avec succès';
             }
             header("Location: /users/index");
@@ -100,13 +97,11 @@ class Users extends AbstractController{
             }              
     }
 
-
     public function delete($id){
-
         $this->loadModel('user');
         $user = $this->user->deleteUser($id);
         if($user !== false){
-            $_SESSION['message'] = 'Supprimer avec succès';
+            $_SESSION['message'] = "Supprimer avec succès";
         }
         header("Location: /users/index");
     }

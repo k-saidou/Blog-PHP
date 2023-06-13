@@ -8,13 +8,13 @@
 <h1>User index</h1>
 <br>
 {% if error != "" %}                                       
-<div id="flash" class="error">
+<div class="error">
     <div class="close" onclick="this.parentElement.remove()">X</div>
     {{error}}
-</div>     
+</div>
 {% endif %}
 {% if message != "" %}                                       
-<div id="flash" class="success">
+<div class="success">
     <div class="close" onclick="this.parentElement.remove()">X</div>
     {{message}}
 </div>
