@@ -54,7 +54,16 @@ class Posts extends AbstractController{
      */
     public function show($id){
 
-        $this->loadModel('Post');
+        $message = "";
+        // On verifie si il y a un message flash
+        if(isset($_SESSION['message'])){
+            // On affiche le message    
+                $message = $_SESSION['message'];
+            // On supprime le message si la page est actualisé
+                unset($_SESSION['message']);
+            }else{
+                $message = "";
+            }        $this->loadModel('Post');
         $post = $this->Post->findById($id);
         $this->loadModel('Comment');
         $comments = $this->Comment->showComment($id);
@@ -66,8 +75,15 @@ class Posts extends AbstractController{
             
             $this->loadModel('comment');
             $comment = $this->comment->create($content, $id_user, $id_post);
-        }  
-        $this->twig->display('posts/show.html.twig', compact('post','comments'));
+            if($comment !== false){
+                $_SESSION['message'] = 'Votre Commentaire a bien été Modifié, un admin le validera prochainement';
+            }
+            $this->twig->display('posts/show.html.twig', compact('post','comments','message'));
+        }else{
+            $error = "Une erreur est survenue, veuillez reessayer.";
+            $this->twig->display('posts/show.html.twig', compact('post','comments','error'));
+        }
+        $this->twig->display('posts/show.html.twig', compact('post','comments','message'));
     }
 
     /**
