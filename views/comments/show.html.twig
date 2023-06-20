@@ -41,7 +41,9 @@
 <hr>
 <br>
 <div class="d-grid gap-2 col-6 mx-auto">
+  {% if session.role == 'ADMIN' %}
   <a role="submit" name="submit" class="btn btn-outline-success btn-sm" href="/comments/updateCom/{{comment.id}}">Valider</a>
+  {% endif %}
   <a class="btn btn-outline-secondary btn-sm" href="/comments/index">Retour</a>
 </div>   
 <br>                                     
