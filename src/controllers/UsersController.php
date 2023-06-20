@@ -9,16 +9,21 @@ class Users extends AbstractController{
      *
      * @return void
      */
+    
     public function index(){
-        var_dump($_SESSION);
+        var_dump($_SESSION['message']);
 
         // On verifie si il y a un message flash
         if(isset($_SESSION['message'])){
+            echo "ok";
         // On affiche le message    
-            $message = ['message'];
+            $message = $_SESSION['message'];
+            var_dump($message);
         // On supprime le message si la page est actualisé
             unset($_SESSION['message']);
         }else{
+            echo "ok2";
+
             $message = "";
         }
         // On instancie le modèle "User"
@@ -87,7 +92,7 @@ class Users extends AbstractController{
             $user = $this->User->update($firstname,$lastname,$email,$password,$id);  
 
             if($user !== false){
-                $_SESSION['message'] = 'Modifier avec succès';
+                $_SESSION['message'] = "Modifier avec succès";
             }
             header("Location: /users/index");
         }else{
