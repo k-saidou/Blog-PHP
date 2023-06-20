@@ -63,27 +63,34 @@ class Posts extends AbstractController{
                 unset($_SESSION['message']);
             }else{
                 $message = "";
-            }        $this->loadModel('Post');
+            }        
+            
+        $this->loadModel('Post');
         $post = $this->Post->findById($id);
         $this->loadModel('Comment');
         $comments = $this->Comment->showComment($id);
 
-        if(isset($this->POST['submit'])){
-            $content = $this->POST['content'];
-            $id_user = $_SESSION['id']; 
-            $id_post = $id;      
-            
-            $this->loadModel('comment');
-            $comment = $this->comment->create($content, $id_user, $id_post);
-            if($comment !== false){
-                $_SESSION['message'] = 'Votre Commentaire a bien été Modifié, un admin le validera prochainement';
+        if(isset($this->POST['submit'], $this->POST['content'])){
+            if(!empty($this->POST['content'])){
+                $content = $this->POST['content'];
+                $id_user = $_SESSION['id']; 
+                $id_post = $id;      
+                
+                $this->loadModel('comment');
+                $comment = $this->comment->create($content, $id_user, $id_post);
+                if($comment !== false){
+                    $_SESSION['message'] = 'Votre Commentaire a bien été transmis, un admin le validera prochainement';
+                    $this->twig->display('posts/show.html.twig', compact('post','comments','message'));
+                }else{
+                    $error = "Une erreur est survenue, veuillez reessayer.";
+                    $this->twig->display('posts/show.html.twig', compact('post','comments','error'));
+                    }   
+            }else{
+                $this->twig->display('posts/show.html.twig', compact('post','comments','message'));
             }
-            $this->twig->display('posts/show.html.twig', compact('post','comments','message'));
         }else{
-            $error = "Une erreur est survenue, veuillez reessayer.";
-            $this->twig->display('posts/show.html.twig', compact('post','comments','error'));
+            $this->twig->display('posts/show.html.twig', compact('post','comments'));
         }
-        $this->twig->display('posts/show.html.twig', compact('post','comments','message'));
     }
 
     /**
@@ -137,7 +144,7 @@ class Posts extends AbstractController{
             
             $this->loadModel('Post');
             $post = $this->Post->create($titre, $chapo, $contenu, $id_user);
-                if($post != false){
+                if($post !== false){
                 $_SESSION['message'] = 'Votre Post a bien été créer';
                 header("Location: /posts/read");
                 }else{

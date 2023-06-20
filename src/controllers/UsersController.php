@@ -10,12 +10,11 @@ class Users extends AbstractController{
      * @return void
      */
     public function index(){
-        var_dump($_SESSION);
 
         // On verifie si il y a un message flash
         if(isset($_SESSION['message'])){
         // On affiche le message    
-            $message = ['message'];
+            $message = $_SESSION['message'];
         // On supprime le message si la page est actualisé
             unset($_SESSION['message']);
         }else{
