@@ -32,9 +32,6 @@ class Home extends AbstractController{
         // On stocke la liste des 4 derniers Post dans $posts
         $posts = $this->Post->getLast();
 
-        // On envoie les données à la vue 
-        $this->twig->display('home/index.html.twig', compact('posts', 'message','info'));
-
         if(isset($this->POST['submit'], $this->POST['name'], $this->POST['email'], $this->POST['phoneNumber'], $this->POST['message'])){
             if(!empty($this->POST['name'])&& !empty($this->POST['email']) && !empty($this->POST['phoneNumber']) && !empty($this->POST['message'])){
         
@@ -47,12 +44,18 @@ class Home extends AbstractController{
                 $contact = $this->contact->create($name, $email, $phoneNumber, $message);
                 if($contact !== false){
                     $_SESSION['info'] = 'Votre message a bien été transmis';
-                }
-                header("location: /");
-            }else{
+                    header("location: /");
+                }else{
                 $error = "Une erreur est survenue, Veuillez réessayer ultérieurement.";
                 $this->twig->display('home/index.html.twig', compact('posts','error','message','info'));
+                }
+            }else{
+                // On envoie les données à la vue 
+                $this->twig->display('home/index.html.twig', compact('posts', 'message','info'));
             }
+        }else{
+            // On envoie les données à la vue 
+            $this->twig->display('home/index.html.twig', compact('posts', 'message','info'));
         }
     }
 }
