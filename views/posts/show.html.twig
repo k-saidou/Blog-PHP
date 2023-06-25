@@ -28,6 +28,9 @@
                 <div class="post-heading">
                     <h1>{{ post.titre }}</h1>
                 </div>
+                <div class="post-heading">
+                    <h2>{{ post.chapo }}</h2>
+                </div>
             </div>
         </div>
     </div>
@@ -58,7 +61,7 @@
                             <div class="card  mb-3 " style="background-color: #F8F9F9" >
                                 {% for comment in comments %}
                                 <hr>        
-                                <small>Ce commentaire a été posté le {{comment.date}} par {{comment.user.firstname}}</small>
+                                <small>Ce commentaire a été posté le {{comment.date}}</small>
                                 <div class="card-body">
                                     <p class="card-text">{{comment.content}}</p>
                                 </div>
