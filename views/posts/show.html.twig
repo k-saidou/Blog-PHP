@@ -1,0 +1,90 @@
+{% extends "default.html.twig" %}
+
+{% block body %}
+       
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('http://localhost/blog-php/public/img/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {% if message != "" %}                                       
+                <div class="success">
+                    <div class="close" onclick="this.parentElement.remove()">X</div>
+                    {{message}}
+                </div>
+                {% endif %}
+                {% if info != "" %}                                       
+                <div class="info">
+                    <div class="close" onclick="this.parentElement.remove()">X</div>
+                    {{info}}
+                </div>
+                {% endif %}
+                {% if error != "" %}                                       
+                <div class="error">
+                    <div class="close" onclick="this.parentElement.remove()">X</div>
+                    {{error}}
+                </div>
+                {% endif %}
+                <div class="post-heading">
+                    <h1>{{ post.titre }}</h1>
+                </div>
+                <div class="post-heading">
+                    <h2>{{ post.chapo }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <p class>{{ post.contenu }}</p>
+                </p>
+            </div>
+        </div>
+    </div>
+</article>
+
+    <div class="container my-5 py-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <div class="card text-dark">
+                    <div class="card-body p-4">
+                        <h4 class="mb-0">Dernier commentaires</h4>
+                        <p class="fw-light mb-4 pb-2">Section de commentaire des utilisateurs</p>
+                    </div>
+                    <hr class="my-0" />
+                    <div class="container" style="background-color:  ">
+                        <div class="row">
+                            <div class="card  mb-3 " style="background-color: #F8F9F9" >
+                                {% for comment in comments %}
+                                <hr>        
+                                <small>Ce commentaire a été posté le {{comment.date}}</small>
+                                <div class="card-body">
+                                    <p class="card-text">{{comment.content}}</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>  
+                    </div>
+                    <form action="" method ="POST">
+                        <br>
+                        <div class="form-group">
+                            <label for="content" >Ecrire un Commentaire</label>
+                            <textarea required name="content" id="content"  rows="8" class="form-control">
+                            </textarea>
+                        </div>
+                        <br>
+                        <div class="d-grid gap-2 col-6 mx-auto">
+                            <button type="submit" name="submit" class="btn btn-outline-primary btn-sm">Enregistrer</button>
+                        </div>  
+                        <br>
+                    </form>
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+{% endblock %}
+
