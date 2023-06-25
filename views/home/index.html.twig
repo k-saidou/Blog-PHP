@@ -26,7 +26,7 @@
                 {% endif %}
                 <div class="site-heading">
                     <h1>developpeur Web</h1>
-                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                    <span class="subheading">Le Blog dédié au développeur</span>
                 </div>
                 <br><br>                
                 <div class="d-flex justify-content-center mb-4"><a class="btn btn-outline-secondary text-dark" href="https://drive.google.com/file/d/1UWFFYZ8_V7Vjv05tmf3UiYTwqLoo9WiP/view?usp=sharing" target=_blank >Télécharger mon CV</a>
@@ -44,13 +44,13 @@
             <div class="post-preview">
                 <a href="posts/show/{{post.id}}">
                 <h2 class="post-title">{{ post.titre }}</h2>
-                <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
+                <h3 class="post-subtitle">{{post.chapo}}</h3>
                 </a>
                 <p class>{{ post.contenu |u.truncate(200, '...', false)}}</p>
                 <p class="post-meta">
-                    Posted by
-                    <a href="#!">Start Bootstrap</a>
-                    on September 24, 2022
+                    Posté le
+                    <a href="#!"></a>
+                    {{post.creationTime}}
                 </p>
             </div>
             <!-- Divider-->
